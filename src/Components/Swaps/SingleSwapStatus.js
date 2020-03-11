@@ -7,9 +7,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Comments from "./Comment/Comments";
-import PostComment from "./Comment/PostComment";
-import RatingBar from "./RatingBar/RatingBar";
+import Comments from "../Shared/Comment/Comments";
+import PostComment from "../Shared/Comment/PostComment";
+import RatingBar from "../Shared/RatingBar/RatingBar";
 import Connection from '../Connection.js';
 
 export default class SingleStatus extends React.Component {
@@ -55,7 +55,7 @@ unShare = status_id => {
         label: 'Yes',
         onClick: () => {
 
-          var token = Connection.getToken();
+          var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
           var url = Connection.getBaseUrl();
           url += "ushares?status_id="+status_id+"&token="+token;
           // var url = "http://192.168.10.3/swap/public/api/ushares?status_id="+status_id+"&token="+token;
@@ -110,7 +110,7 @@ likeStatus = status_id =>{
 
   // toast.success('Status liked',{containerId: 'B'});
 
-  var token = Connection.getToken();
+  var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
   var url = Connection.getBaseUrl();
   url += "likes?status_id="+status_id+"&token="+token;
   // var url = "http://192.168.10.3/swap/public/api/likes?status_id="+status_id+"&token="+token;
@@ -126,7 +126,7 @@ likeStatus = status_id =>{
 
 
 shareStatus = status_id =>{
-  var token = Connection.getToken();
+  var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
   var url = Connection.getBaseUrl();
   url += "shares?status_id="+status_id+"&token="+token;
   // var url = "http://192.168.10.3/swap/public/api/shares?status_id="+status_id+"&token="+token;
@@ -174,7 +174,7 @@ commentMade = commentt => {
 }
 
 fetchComments = status_id => {
-  var token = Connection.getToken();
+  var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
   var url = Connection.getBaseUrl();
   url += "getcomments?status_id="+status_id+"&token="+token;
   // var url = "http://192.168.10.3/swap/public/api/getcomments?status_id="+status_id+"&token="+token;
@@ -199,11 +199,23 @@ refreshComments(){
 }
 
 tagUsers(){
-  if(this.props.status.is_users_tagged){
+  if(this.props.status.tag_count > 0){
     return (
   <span className="following" >with <span style={{color:'#B401FF', fontSize:'10px'}}>{this.props.status.first_tag} and {this.props.status.tag_count} other</span></span>
     );
   }
+}
+
+swapedByYouOrWithYou(){
+    if(this.props.status.isMe){
+        return (
+            <p style={{color:'#B401FF'}}>You Swapped with {this.props.status.swaped_with_user_name}</p>
+        )
+    }else {
+        return (
+            <p style={{color:'#B401FF'}}>{this.props.status.poster_user_name} Swapped with you</p>
+        )
+    }
 }
 
 	render(){
@@ -216,7 +228,8 @@ tagUsers(){
           <img src={this.props.status.profile_image} alt="user" className="profile-photo-md pull-left" />
           <div className="post-detail">
             <div className="user-info">
-              <h5><a href="timeline.html" className="profile-link">{this.props.status.name}</a>{this.tagUsers()}</h5>
+{this.swapedByYouOrWithYou()}
+              <h5><a href="timeline.html" className="profile-link">{this.props.status.poster_user_name}</a>{this.tagUsers()}</h5>
               
               
               <p className="text-muted">{this.props.status.created_at}</p>
@@ -234,7 +247,7 @@ tagUsers(){
             <div className="">
     <a  style={{color:this.statusActionColors('like',this.state.isLiked)}} className="btn"><i onClick={() => this.likeStatus(this.props.status.status_id)} className="icon ion-heart" /> {this.state.likescount}</a>
     <a className="btn " style={{color:'gray'}}><i className="icon ion-share" onClick={() => this.shareStatus(this.props.status.status_id)}   /> {this.state.sharecount}</a>
-    <a className="btn"><i className="fa fa-comment" onClick={() => this.showComments(this.props.status.status_id)} /> {this.props.status.comments_count}</a>
+    <a className="btn text-red"><i className="fa fa-comment" onClick={() => this.showComments(this.props.status.status_id)} /> {this.props.status.comments_count}</a>
             </div>
             <div style={{display: this.state.visibility ? 'block' : 'none'}} >
             {this.state.comblock}

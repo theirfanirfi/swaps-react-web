@@ -7,10 +7,10 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Comments from "./Comment/Comments";
-import PostComment from "./Comment/PostComment";
-import RatingBar from "./RatingBar/RatingBar";
-import Connection from '../Connection.js';
+import Comments from "../../Shared/Comment/Comments";
+import PostComment from "../../Shared/Comment/PostComment";
+import RatingBar from "../../Shared/RatingBar/RatingBar";
+import Connection from '../../Connection.js';
 
 export default class SingleStatus extends React.Component {
 	constructor(props) {
@@ -213,10 +213,10 @@ tagUsers(){
 <ToastContainer enableMultiContainer containerId={'B'} autoClose={1500} position={toast.POSITION.TOP_CENTER} />
         {/* <img src="images/post-images/1.jpg" alt="post-image" className="img-responsive post-image" /> */}
         <div className="post-container">
-          <img src={this.props.status.profile_image} alt="user" className="profile-photo-md pull-left" />
+          <img src={this.props.status.poster_profile_image} alt="user" className="profile-photo-md pull-left" />
           <div className="post-detail">
             <div className="user-info">
-              <h5><a href="timeline.html" className="profile-link">{this.props.status.name}</a>{this.tagUsers()}</h5>
+              <h5><a href="timeline.html" className="profile-link">{this.props.status.poster_user_name}</a>{this.tagUsers()}</h5>
               
               
               <p className="text-muted">{this.props.status.created_at}</p>

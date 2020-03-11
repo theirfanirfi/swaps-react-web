@@ -1,13 +1,13 @@
 import React from "react";
-import SingleStatus from "../Shared/SingleStatus";
 import Connection from '../Connection.js';
-export default class StatusContents extends React.Component {
+import NotificationRow from './NotificationRow.js';
+export default class Notifications extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {value: ''};
     }
     state = {
-      statuses: []
+      notifications: []
     }
 
     status = {
@@ -17,21 +17,20 @@ export default class StatusContents extends React.Component {
     }
 
      async componentDidMount(){
-      var token = Connection.getToken();
+      var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
       var url = Connection.getBaseUrl();
-      url += 'status/getStatuses?token='+token;
-      // var url = 'http://192.168.10.6/swap/public/api/status/getStatuses?token='+token;
+      url += 'notifications/getNotificationsrw?token='+token;
       fetch(url)
       .then(res => res.json())
       .then(text => {
         if(text.isAuthenticated){
           if(text.isFound){
             this.setState({
-              statuses: text.statuses
+              notifications: text.notifications
             }
             
             // ,() => {
-            //                console.log(this.state.statuses);
+            //                console.log(this.state.notifications);
 
             // }
             
@@ -47,13 +46,13 @@ export default class StatusContents extends React.Component {
     //         callBack: PropTypes.func
     // }
 
-    renderStatuses(statuses) {
+    renderStatuses(notifications) {
      
-     if(this.state.statuses){
-      var comp = statuses.map((status, i) => {     
+     if(this.state.notifications){
+      var comp = notifications.map((notification, i) => {     
          // console.log("Entered");                 
           // Return the element. Also pass key     
-          return <SingleStatus key={i} status={status} />
+          return <NotificationRow key={i} notification={notification} />
        })
        return comp;
       }
@@ -66,7 +65,7 @@ export default class StatusContents extends React.Component {
         return(
           //  <SingleStatus statuses={this.state.statuses}/>
          <div>
-           {this.renderStatuses(this.state.statuses)}
+           {this.renderStatuses(this.state.notifications)}
          </div>
         )
     }

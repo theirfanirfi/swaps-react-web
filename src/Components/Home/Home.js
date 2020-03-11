@@ -10,9 +10,10 @@ import Sidebar from "../Shared/Sidebar.js";
 import Creatpost from "../Shared/Creatpost.js";
 import StatusContents from "./StatusContents.js";
 import WhoToFollow from "../Shared/WhoToFollow.js";
-import Swaps from "../Swaps/Swaps.js";
+import SwapContents from '../Swaps/SwapContents.js';
 import Browse from "../Browse/Browse.js";
-
+import Notifications from '../Notifications/Notifications.js';
+import SwapRequests from "../SwapRequests/SwapRequests.js";
 export default class Home extends React.Component {
 	constructor(props) {
   super(props);
@@ -25,14 +26,24 @@ renderView = v => {
 if(v == 'home'){
 	this.setState({value: <StatusContents />});
 }else if(v=='swaps'){
-	this.setState({value: <Swaps />});
+	this.setState({value: <SwapContents />});
 
 
 }else if(v=='browse'){
   this.setState({value: <Browse />});
 
 
-}else {
+}
+else if(v=='notifications'){
+	this.setState({value: <Notifications />});
+  
+  
+  }else if(v=='swapreq'){
+	this.setState({value: <SwapRequests />});
+  
+  
+  }
+else {
   this.setState({value: <StatusContents />});
 }
 }

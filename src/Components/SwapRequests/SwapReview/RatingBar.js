@@ -4,7 +4,7 @@ import Rating from 'react-rating';
 import Connection from '../../Connection.js';
 export default class RatingBar extends React.Component {
     static = {
-        status: PropTypes.object
+        callBack: PropTypes.func
     }
 
     state = {
@@ -12,26 +12,13 @@ export default class RatingBar extends React.Component {
     }
 
     componentDidMount(){
-        this.setState({
-            stars: this.props.status.ratting == null ? this.props.status.avg_ratting : this.props.status.ratting
-        })
+        // this.setState({
+        //     stars: this.props.status.ratting == null ? this.props.status.avg_ratting : this.props.status.ratting
+        // })
     }
 
     rateStatus(){
-        var token = Connection.getToken();
-        var url = Connection.getBaseUrl();
-        url += "status/rateStatus?status_id="+this.props.status.status_id+"&rating="+this.state.stars+"&token="+token;
-        // var url = "http://192.168.10.6/swap/public/api/status/rateStatus?status_id="+this.props.status.status_id+"&rating="+this.state.stars+"&token="+token;
-            fetch(url)
-            .then(res => res.json())
-            .then((res) => {
-              if(res.isRated){
-                  console.log(res.rating);
-                  this.setState({
-                      stars: res.rating,
-                  })
-              }
-            })
+        this.props.callBack(this.state.stars);
     }
 
 
@@ -45,7 +32,7 @@ export default class RatingBar extends React.Component {
                 })
             }}
             placeholderRating={this.state.stars}
-            style={{fontSize: '16px'}} 
+            style={{fontSize: '26px'}} 
             placeholderSymbol={<icon className="fa fa-star" style={{margin: '4px',color:'#B401FF'}}  />}
             fullSymbol={<icon className="fa fa-star" style={{margin: '4px',}}  />} 
             emptySymbol={<icon style={{margin: '4px',}} className="fa fa-star" />} />
