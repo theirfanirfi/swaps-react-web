@@ -1,15 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import Home from './Components/Home/Home.js';
 import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import { render } from '@testing-library/react';
 import Profile from './Components/Profile/Profile.js';
+import BrowseTab from './Components/Browse/BrowseTab';
+import SwapsTab from './Components/Swaps/SwapsTab';
+import NotificationsTab from './Components/Notifications/NotificationsTab';
+import SwapReqsTab from './Components/SwapRequests/SwapReqsTab';
 export default class App extends React.Component {
   // var primaryColor = '#5202FF';
 render(){
@@ -26,9 +27,21 @@ render(){
    <Route path="/profile">
       <Profile />
     </Route>
-   {/* <Route path="/dashboard">
-      <Dashboard />
-    </Route>  */}
+   <Route path="/browse">
+      <BrowseTab />
+    </Route> 
+
+    <Route path="/swaps">
+      <SwapsTab />
+    </Route> 
+
+    <Route path="/notifications">
+      <NotificationsTab />
+    </Route> 
+
+    <Route path="/swaprequests">
+      <SwapReqsTab />
+    </Route> 
   </Switch>
   </div>
   </Router>

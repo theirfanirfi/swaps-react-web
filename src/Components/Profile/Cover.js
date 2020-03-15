@@ -38,7 +38,13 @@ export default class Cover extends React.Component {
         return(
             <div className="timeline-cover">
             {/*Timeline Menu for Large Screens*/}
+
             <div className="timeline-nav-bar hidden-sm hidden-xs">
+            {/* <div className="row" >
+                <div className="col-md-3"></div>
+                <div className="col-md-3"></div>
+        <div className="col-md-3">{this.props.user.profile_description}</div>
+              </div> */}
               <div className="row">
                 <div className="col-md-3">
                   <div className="profile-info">
@@ -48,7 +54,7 @@ export default class Cover extends React.Component {
                   </div>
                 </div>
                 <div className="col-md-9">
-        <h3>{this.props.user.name}</h3>
+      <h3>{this.props.user.name}</h3>
 
                 <p>
                 <RatingBar stats={this.props.stats}  />

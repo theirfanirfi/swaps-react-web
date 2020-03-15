@@ -1,7 +1,7 @@
 import React from "react";
 import Connection from '../Connection.js';
 import SingleSwapStatus from './SingleSwapStatus.js';
-export default class StatusContents extends React.Component {
+export default class SwapContents extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {value: ''};

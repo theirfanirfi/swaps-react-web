@@ -42,10 +42,10 @@ this.props.callBack(tab);
               </li>
               {/* <li  ><a href="#" onClick={() => this.tabClicked('home')} style={{fontSize: '18px',color:'#B401FF'}}>Home</a></li> */}
               <li  ><Link to="/home" style={{fontSize: '20px',color:'#B401FF'}}>Home</Link></li>
-              <li ><a href="#" onClick={() => this.tabClicked('swaps')} style={{fontSize: '18px',color:'#B401FF'}}>Swaps</a></li>
-              <li ><a href="#" onClick={() => this.tabClicked('browse')} style={{fontSize: '18px',color:'#B401FF'}}>Browse</a></li>
-              <li ><a href="#" onClick={() => this.tabClicked('notifications')} style={{fontSize: '18px',color:'#B401FF'}}>Notifications</a></li>
-              <li ><a href="#" onClick={() => this.tabClicked('swapreq')} style={{fontSize: '18px',color:'#B401FF'}}>Swap Requests</a></li>
+              <li ><Link to="/swaps"  style={{fontSize: '18px',color:'#B401FF'}}>Swaps</Link></li>
+              <li ><Link to="/browse"  style={{fontSize: '18px',color:'#B401FF'}}>Browse</Link></li>
+              <li ><Link to="/notifications" style={{fontSize: '18px',color:'#B401FF'}}>Notifications</Link></li>
+              <li ><Link to="/swaprequests" style={{fontSize: '18px',color:'#B401FF'}}>Swap Requests</Link></li>
 <li className="hidden-sm">
 <form className="navbar-form navbar-right ">
               <div className="form-group">
