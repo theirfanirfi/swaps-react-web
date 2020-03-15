@@ -14,7 +14,7 @@ export default class Notifications extends React.Component {
 
 
      async componentDidMount(){
-      var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+      var token = Connection.getToken();
       var url = Connection.getBaseUrl();
       url += 'notifications/getNotificationsrw?token='+token;
       fetch(url)
@@ -23,7 +23,8 @@ export default class Notifications extends React.Component {
         if(text.isAuthenticated){
           if(text.isFound){
             this.setState({
-              notifications: text.notifications
+              notifications: text.notifications,
+              loading: false,
             });
           }else {
             this.setState({

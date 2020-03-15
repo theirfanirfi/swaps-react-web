@@ -67,11 +67,13 @@ export default class Topbar extends React.Component {
               <img style={{width:'50px'}} src="images/app_logo.png" alt="logo" />
               </li>
               {/* <li  ><a href="#" onClick={() => this.tabClicked('home')} style={{fontSize: '18px',color:'#B401FF'}}>Home</a></li> */}
-              <li  ><Link to="/home" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-home"></i></Link></li>
-              <li ><a href="#" onClick={() => this.tabClicked('swaps')} style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-exchange"></i></a></li>
-              <li ><a href="#" onClick={() => this.tabClicked('browse')} style={{fontSize: '14px',color:'#B401FF'}}>Browse</a></li>
-              <li ><a href="#" onClick={() => this.tabClicked('notifications')} style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-bell" /></a></li>
-              <li ><a href="#" onClick={() => this.tabClicked('swapreq')} style={{fontSize: '14px',color:'#B401FF'}}>Swap Requests</a></li>
+              <li><Link to="/home" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-home"></i></Link></li>
+              <li><Link to="/swaps" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-exchange"></i></Link></li>
+              <li ><Link to="/browse" style={{fontSize: '14px',color:'#B401FF'}}>Browse</Link></li>
+              <li ><Link to="/notifications" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-bell" /></Link></li>
+              <li ><Link to="/swaprequests" style={{fontSize: '14px',color:'#B401FF'}}>Swap Requests</Link></li>
+              <li ><Link to="/profile" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-user" /></Link></li>
+
                 </ul>
               </div>
             </div>{/*Timeline Menu for Small Screens End*/}

@@ -24,7 +24,7 @@ export default class StatusContents extends React.Component {
           if(text.isFound){
             this.setState({
               statuses: text.swaps,
-              // loading: false,
+              loading: false,
             });
           }else {
             this.setState({

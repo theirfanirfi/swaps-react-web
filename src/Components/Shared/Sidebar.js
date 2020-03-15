@@ -19,7 +19,7 @@ export default class Sidebar extends React.Component {
 
     render(){
         return(
-            <div className="col-md-3 static" id="hideonmobile">
+            <div className="col-md-3 static hidden-sm hidden-xs" id="hideonmobile">
             <div className="profile-card">
               <img src="images/users/user-1.jpg" alt="user" className="profile-photo" />
               <h5><Link to="/profile" className="text-white">Sarah Cruiz</Link></h5>
