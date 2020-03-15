@@ -8,6 +8,6 @@ export default {
     },
 
     getToken(){
-       return 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+       return 'JDJ5JDEwJFJPVGpxRFh3Y2FHSEJuVTN1MjMvQi5Gb3Jjb2EuSFVLQ1YxNm5Bb2E1MUVLT1BjdDZXZngy';
     }
 }

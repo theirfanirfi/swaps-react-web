@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import RatingBar from './RatingBar.js';
 import {
   Link
 } from "react-router-dom";
@@ -11,7 +12,9 @@ export default class Cover extends React.Component {
 
   }
   static = {
-    tab: PropTypes.func
+    tab: PropTypes.func,
+    stats: PropTypes.object,
+    user: PropTypes.object,
   }
 
   switchTab = (t) => {
@@ -40,21 +43,25 @@ export default class Cover extends React.Component {
                 <div className="col-md-3">
                   <div className="profile-info">
                     
-                    <img src="images/users/user-1.jpg" alt="" className="img-responsive profile-photo" />
+                    <img src={this.props.user.profile_image} alt="" className="img-responsive profile-photo" />
                     {/* <p className="text-muted">Creative Director</p> */}
                   </div>
                 </div>
                 <div className="col-md-9">
-                <h3>Sarah Cruiz</h3>
+        <h3>{this.props.user.name}</h3>
 
+                <p>
+                <RatingBar stats={this.props.stats}  />
+                </p>
                   <ul className="list-inline profile-menu">
-                    <li><Link onClick={() => this.switchTab('statuses')} className={this.state.statuses}>Statuses</Link></li>
-                    <li><Link onClick={() => this.switchTab('swaps')} className={this.state.swaps}>Swaps</Link></li>
+        <li><Link onClick={() => this.switchTab('statuses')} className={this.state.statuses}>Statuses {this.props.stats.statuses}</Link></li>
+        <li><Link onClick={() => this.switchTab('swaps')} className={this.state.swaps}>Swaps {this.props.stats.swaps}</Link></li>
                     {/* <li><a href="timeline-album.html">Album</a></li>
                     <li><a href="timeline-friends.html">Friends</a></li> */}
                   </ul>
                   <ul className="follow-me list-inline">
-                    <li>1,299 people following her</li>
+                  
+                  <li><b>{this.props.stats.followers}</b> Followers</li>
                     <li><button className="btn-primary">Follow</button></li>
                   </ul>
                 </div>
@@ -64,14 +71,15 @@ export default class Cover extends React.Component {
             <div className="row">
             <div className="navbar-mobile hidden-lg hidden-md" style={{position:'initial'}}>
               <div className="profile-info">
-                <img src="images/users/user-1.jpg" alt="" className="img-responsive profile-photo" style={{width:'40%',height:'10%'}} />
+                <img src={this.props.user.profile_image} alt="" className="img-responsive profile-photo" style={{width:'40%',height:'10%'}} />
               </div>
               <div className="mobile-menu">
-              <h4>Sarah Cruiz</h4>
+              <h4>{this.props.user.name}</h4>
+              <RatingBar stats={this.props.stats}  />
 
                 <ul className="list-inline">
-                  <li><Link style={{color:'white'}} onClick={() => this.switchTab('statuses')} className={this.state.statuses}>Statuses</Link></li>
-                  <li><Link style={{color:'white'}} onClick={() => this.switchTab('swaps')} className={this.state.swaps}>Swaps</Link></li>
+                  <li><Link style={{color:'white'}} onClick={() => this.switchTab('statuses')} className={this.state.statuses}>Statuses {this.props.stats.statuses}</Link></li>
+                  <li><Link style={{color:'white'}} onClick={() => this.switchTab('swaps')} className={this.state.swaps}>Swaps {this.props.stats.swaps}</Link></li>
                   {/* <li><a href="timeline-album.html">Album</a></li>
                   <li><a href="timeline-friends.html">Friends</a></li> */}
                 </ul>
