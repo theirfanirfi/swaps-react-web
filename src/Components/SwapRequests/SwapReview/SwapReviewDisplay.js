@@ -1,13 +1,16 @@
 import React from "react";
 import Connection from '../../Connection.js';
 import ReviewRow from './ReviewRow';
+import ClipLoader from "react-spinners/ClipLoader";
+
 export default class SwapReviewDispaly extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {value: ''};
     }
     state = {
-      notifications: []
+      notifications: [],
+      loading: true,
     }
 
 
@@ -21,25 +24,21 @@ export default class SwapReviewDispaly extends React.Component {
         if(text.isAuthenticated){
           if(text.isFound){
             this.setState({
-              notifications: text.swaps
-            }
-            
-            // ,() => {
-            //                console.log(this.state.notifications);
-
-            // }
-            
-            );
+              notifications: text.swaps,
+              loading: false,
+            });
+          }else {
+            this.setState({
+              loading: false
+            })
           }
+        }else {
+          this.setState({
+            loading: false
+          })
         }
       })
-      // .then(response => {
-      //   console.log(response);
-      // });
     }
-    // static = {
-    //         callBack: PropTypes.func
-    // }
 
     renderStatuses(notifications) {
      
@@ -60,6 +59,13 @@ export default class SwapReviewDispaly extends React.Component {
         return(
           //  <SingleStatus statuses={this.state.statuses}/>
          <div style={{padding: 12}}>
+                                 			<div style={{width:'100%',padding:'8px',display: 'flex',  justifyContent:'center', alignItems:'center',}}>
+			<ClipLoader
+          size={20}
+          color={"#123abc"}
+          loading={this.state.loading}
+        />
+		</div>
            {this.renderStatuses(this.state.notifications)}
          </div>
         )

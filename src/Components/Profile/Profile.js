@@ -4,7 +4,7 @@ import Topbar from "../Shared/Topbar.js";
 import StatusContents from "../Home/StatusContents.js";
 import SwapContents from '../Swaps/SwapContents.js';
 import Connection from '../Connection.js';
-
+import ClipLoader from "react-spinners/ClipLoader";
 export default class Profile extends React.Component {
 	constructor(props) {
   super(props);
@@ -13,6 +13,7 @@ export default class Profile extends React.Component {
 	  value: <StatusContents />,
 	  stats: [],
 	  user: [],
+	  loading: true,
 	};
 }
 
@@ -35,14 +36,27 @@ componentDidMount(){
 	fetch(url)
 	.then(res => res.json())
 	.then(res => {
-		if(res.isError){
-			alert(res.message);
-		}else if(res.isFound){
+		if(res.isAuthenticated){
+			if(res.isFound){
+				this.setState({
+					stats: res.stats,
+					user: res.user,
+					loading: false
+				})
+			}else {
+				this.setState({
+				  loading: false
+				}, () => {
+					alert(res.message)
+				})
+			  }
+		}else {
 			this.setState({
-				stats: res.stats,
-				user: res.user,
+			  loading: false
+			}, () => {
+				alert(res.message)
 			})
-		}
+		  }
 	});
 }
 	render(){
@@ -61,6 +75,13 @@ componentDidMount(){
 
 
           <div className="col-md-12">
+		  <div style={{width:'100%',padding:'8px',display: 'flex',  justifyContent:'center', alignItems:'center',}}>
+			<ClipLoader
+          size={20}
+          color={"#123abc"}
+          loading={this.state.loading}
+        />
+		</div>
 		  <Cover tab={this.renderView} stats={this.state.stats} user={this.state.user} />
             
 </div>

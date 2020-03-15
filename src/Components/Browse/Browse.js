@@ -1,47 +1,43 @@
 import React from "react";
 import SingleBrowseStatus from "./SingleBrowseStatus";
 import Connection from '../Connection.js';
-
+import ClipLoader from "react-spinners/ClipLoader";
 export default class StatusContents extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {value: ''};
     }
     state = {
-      statuses: []
+      statuses: [],
+      loading: true,
     }
 
 
      async componentDidMount(){
-      var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+      var token = Connection.getToken();
       var url = Connection.getBaseUrl();
       url += 'swaps?token='+token;
       fetch(url)
       .then(res => res.json())
       .then(text => {
-        console.log(text);
         if(text.isAuthenticated){
           if(text.isFound){
             this.setState({
-              statuses: text.swaps
-            }
-            
-            ,() => {
-                          //  console.log(text);
-
-            }
-            
-            );
+              statuses: text.swaps,
+              // loading: false,
+            });
+          }else {
+            this.setState({
+              loading: false
+            })
           }
+        }else {
+          this.setState({
+            loading: false
+          })
         }
       })
-      // .then(response => {
-      //   console.log(response);
-      // });
     }
-    // static = {
-    //         callBack: PropTypes.func
-    // }
 
     renderStatuses(statuses) {
      
@@ -62,6 +58,13 @@ export default class StatusContents extends React.Component {
         return(
           //  <SingleStatus statuses={this.state.statuses}/>
          <div>
+                      			<div style={{width:'100%',padding:'8px',display: 'flex',  justifyContent:'center', alignItems:'center',}}>
+			<ClipLoader
+          size={20}
+          color={"#123abc"}
+          loading={this.state.loading}
+        />
+		</div>
            {this.renderStatuses(this.state.statuses)}
          </div>
         )

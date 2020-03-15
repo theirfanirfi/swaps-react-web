@@ -1,20 +1,18 @@
 import React from "react";
 import SingleStatus from "../Shared/SingleStatus";
 import Connection from '../Connection.js';
+import ClipLoader from "react-spinners/ClipLoader";
+
 export default class StatusContents extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {value: ''};
     }
     state = {
-      statuses: []
+      statuses: [],
+      loading: true,
     }
 
-    status = {
-      username: 'Irfan Ullah',
-      published: '02:42 am',
-      status: 'this is my status',
-    }
 
      async componentDidMount(){
       var token = Connection.getToken();
@@ -27,25 +25,21 @@ export default class StatusContents extends React.Component {
         if(text.isAuthenticated){
           if(text.isFound){
             this.setState({
-              statuses: text.statuses
-            }
-            
-            // ,() => {
-            //                console.log(this.state.statuses);
-
-            // }
-            
-            );
+              statuses: text.statuses,
+              loading: false,
+            });
+          }else {
+            this.setState({
+              loading: false
+            })
           }
+        }else {
+          this.setState({
+            loading: false
+          })
         }
       })
-      // .then(response => {
-      //   console.log(response);
-      // });
     }
-    // static = {
-    //         callBack: PropTypes.func
-    // }
 
     renderStatuses(statuses) {
      
@@ -66,6 +60,14 @@ export default class StatusContents extends React.Component {
         return(
           //  <SingleStatus statuses={this.state.statuses}/>
          <div>
+           			<div style={{width:'100%',padding:'8px',display: 'flex',  justifyContent:'center', alignItems:'center',}}>
+			<ClipLoader
+          size={20}
+          color={"#123abc"}
+          loading={this.state.loading}
+        />
+		</div>
+
            {this.renderStatuses(this.state.statuses)}
          </div>
         )

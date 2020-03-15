@@ -14,13 +14,6 @@ export default class Topbar extends React.Component {
         this.state = {value: ''};
     }
 
-    static = {
-            callBack: PropTypes.func
-    }
-
-tabClicked = tab => {
-this.props.callBack(tab);
-}
     render(){
      
 

@@ -4,49 +4,17 @@ import React from "react";
 // import HomeIcon from '@material-ui/icons/Home';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 // import LocationOnIcon from '@material-ui/icons/LocationOn';
-
 import Topbar from "../Shared/Topbar.js";
 import Sidebar from "../Shared/Sidebar.js";
 import Creatpost from "../Shared/Creatpost.js";
 import StatusContents from "./StatusContents.js";
 import WhoToFollow from "../Shared/WhoToFollow.js";
-import SwapContents from '../Swaps/SwapContents.js';
-import Browse from "../Browse/Browse.js";
-import Notifications from '../Notifications/Notifications.js';
-import SwapRequests from "../SwapRequests/SwapRequests.js";
 export default class Home extends React.Component {
 	constructor(props) {
   super(props);
-
-  this.state = {value: <StatusContents />};
 }
 
 
-renderView = v => {
-if(v == 'home'){
-	this.setState({value: <StatusContents />});
-}else if(v=='swaps'){
-	this.setState({value: <SwapContents />});
-
-
-}else if(v=='browse'){
-  this.setState({value: <Browse />});
-
-
-}
-else if(v=='notifications'){
-	this.setState({value: <Notifications />});
-  
-  
-  }else if(v=='swapreq'){
-	this.setState({value: <SwapRequests />});
-  
-  
-  }
-else {
-  this.setState({value: <StatusContents />});
-}
-}
 	render(){
 
 
@@ -63,8 +31,8 @@ else {
 
           <div className="col-md-7">
             <Creatpost />
-            
-{this.state.value}
+
+			<StatusContents />
 </div>
 
 {/* right bar */}
