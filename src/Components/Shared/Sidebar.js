@@ -21,7 +21,7 @@ export default class Sidebar extends React.Component {
         return(
             <div className="col-md-3 static hidden-sm hidden-xs" id="hideonmobile">
             <div className="profile-card">
-              <img src="images/users/user-1.jpg" alt="user" className="profile-photo" />
+              <img src={process.env.PUBLIC_URL+"/images/users/user-1.jpg"} alt="user" className="profile-photo" />
               <h5><Link to="/profile" className="text-white">Sarah Cruiz</Link></h5>
               <a href="#" className="text-white"><i className="ion ion-android-person-add" /> 1,299 followers</a>
             </div>{/*profile card ends*/}

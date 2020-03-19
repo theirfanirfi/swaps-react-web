@@ -11,7 +11,7 @@ export default class PostComment extends React.Component {
         commentBox: ''
     }
     postComment(){
-        var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+        var token = Connection.getToken();
         var url = Connection.getBaseUrl();
         url += "commentons?status_id="+this.props.status.status_id+"&comment="+this.state.commentBox+"&token="+token;
         // var url = "http://192.168.10.3/swap/public/api/commentons?status_id="+this.props.status.status_id+"&comment="+this.state.commentBox+"&token="+token;
@@ -37,7 +37,7 @@ export default class PostComment extends React.Component {
         return(
         <div>
             <div className="post-comment">
-                    <img src="images/users/user-1.jpg" alt="" className="profile-photo-sm" />
+                    <img src={process.env.PUBLIC_URL+"/images/users/user-1.jpg"} alt="" className="profile-photo-sm" />
                     <input type="text" onChange={(text) => this.setState({commentBox: text.target.value})}  className="form-control" placeholder="Post a comment" value={this.state.commentBox} />
                     <button onClick={() => this.postComment()} className="btn btn-primary">Post</button>
                   </div>

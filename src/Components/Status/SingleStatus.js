@@ -7,13 +7,15 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Comments from "./Comment/Comments";
-import PostComment from "./Comment/PostComment";
-import RatingBar from "./RatingBar/RatingBar";
+import Comments from "../Shared/Comment/Comments";
+import PostComment from "../Shared/Comment/PostComment";
+import RatingBar from "../Shared/RatingBar/RatingBar";
 import Connection from '../Connection.js';
+
 import {
   Link
 } from "react-router-dom";
+import SingleStatusComments from "./SingleStatusComments";
 export default class SingleStatus extends React.Component {
 	constructor(props) {
   super(props);
@@ -23,6 +25,7 @@ export default class SingleStatus extends React.Component {
 
 static = {
     status: PropTypes.object,
+    loading: true,
 }
 
 displayCarouselIfHasAttachements(status){
@@ -86,11 +89,14 @@ unShare = status_id => {
 };
 
 componentDidMount(){
+
   this.setState({
     status: this.props.status,
     likescount: this.props.status.likes_count,
     isLiked: this.props.status.isLiked,
     sharecount: this.props.status.shares_count
+  },() => {
+      console.log(this.state.likescount);
   });
 }
 
@@ -176,24 +182,28 @@ commentMade = commentt => {
 }
 
 fetchComments = status_id => {
+    // alert(status_id);
   var token = Connection.getToken();
   var url = Connection.getBaseUrl();
   url += "getcomments?status_id="+status_id+"&token="+token;
   // var url = "http://192.168.10.3/swap/public/api/getcomments?status_id="+status_id+"&token="+token;
-  if(this.state.visibility){
     fetch(url)
     .then(res => res.json())
     .then((res) => {
       if(res.isFound){
       var comments = res.comments;
-      console.log(comments);
+      console.log("comments: "+comments);
       var comblockk = comments.map((comment,i) => {
         return <Comments comment={comment} key={i} />
       });
-      this.setState({comblock: comblockk});
+
+    //   this.setState({comblock: comblockk});
+    return comblockk;
+
+
       }
     })
-  }
+
 }
 
 refreshComments(){
@@ -213,10 +223,13 @@ return "/status/"+this.props.status.status_id;
 }
 
 	render(){
-
 		return(
+            <div>
+
+            
 <div className="post-content">
-  <Link to={"/status/"+this.props.status.status_id} style={{textDecoration: 'none'}}>
+
+  <Link to={"/status/"+this.props.status.status_id} style={{textDecoration:'none'}} >
 <ToastContainer enableMultiContainer containerId={'B'} autoClose={1500} position={toast.POSITION.TOP_CENTER} />
         {/* <img src="images/post-images/1.jpg" alt="post-image" className="img-responsive post-image" /> */}
         <div className="post-container">
@@ -243,15 +256,19 @@ return "/status/"+this.props.status.status_id;
     <a className="btn " style={{color:'gray'}}><i className="icon ion-share" onClick={() => this.shareStatus(this.props.status.status_id)}   /> {this.state.sharecount}</a>
     <a className="btn"><i className="fa fa-comment" onClick={() => this.showComments(this.props.status.status_id)} /> {this.props.status.comments_count}</a>
             </div>
-            <div style={{display: this.state.visibility ? 'block' : 'none'}} >
-            {this.state.comblock}
-            {/* {this.refreshComments()} */}
+            <div >
+                
+            {/* {this.state.comblock} */}
+            {/* {this.fetchComments(this.props.status.status_id)} */}
+            <SingleStatusComments status_id={this.props.status.status_id} />
             <PostComment callMeAfterComment={this.commentMade} status={this.props.status} />
 
             </div>
           </div>
         </div>
         </Link>
+      </div>
+
       </div>
 			);
 	}

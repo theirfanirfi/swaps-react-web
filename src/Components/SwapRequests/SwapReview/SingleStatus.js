@@ -11,7 +11,9 @@ import Comments from "../../Shared/Comment/Comments";
 import PostComment from "../../Shared/Comment/PostComment";
 import RatingBar from "../../Shared/RatingBar/RatingBar";
 import Connection from '../../Connection.js';
-
+import {
+  Link
+} from "react-router-dom";
 export default class SingleStatus extends React.Component {
 	constructor(props) {
   super(props);
@@ -210,6 +212,7 @@ tagUsers(){
 
 		return(
 <div className="post-content">
+<Link to={"/status/"+this.props.status.status_id} style={{textDecoration: 'none'}}>
 <ToastContainer enableMultiContainer containerId={'B'} autoClose={1500} position={toast.POSITION.TOP_CENTER} />
         {/* <img src="images/post-images/1.jpg" alt="post-image" className="img-responsive post-image" /> */}
         <div className="post-container">
@@ -244,6 +247,7 @@ tagUsers(){
             </div>
           </div>
         </div>
+        </Link>
       </div>
 			);
 	}

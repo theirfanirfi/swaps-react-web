@@ -1,9 +1,4 @@
 import React from "react";
-// import "../../assets/css/bootstrap.min.css";
-// import "../../assets/css/style.css";
-// import "../../assets/css/ionicons.min.css";
-// import "../../assets/css/font-awesome.min.css";
-import PropTypes from 'prop-types';
 import {
   Link
 } from "react-router-dom";
@@ -31,7 +26,7 @@ export default class Topbar extends React.Component {
           <div >
             <ul id="swaptopmenu">
               <li>
-              <img style={{width:'50px'}} src="images/app_logo.png" alt="logo" />
+              <img style={{width:'50px'}} src={process.env.PUBLIC_URL+"/images/app_logo.png"} alt="logo" />
               </li>
               {/* <li  ><a href="#" onClick={() => this.tabClicked('home')} style={{fontSize: '18px',color:'#B401FF'}}>Home</a></li> */}
               <li  ><Link to="/home" style={{fontSize: '20px',color:'#B401FF'}}>Home</Link></li>

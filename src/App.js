@@ -11,6 +11,7 @@ import BrowseTab from './Components/Browse/BrowseTab';
 import SwapsTab from './Components/Swaps/SwapsTab';
 import NotificationsTab from './Components/Notifications/NotificationsTab';
 import SwapReqsTab from './Components/SwapRequests/SwapReqsTab';
+import Status from './Components/Status/Status.js';
 export default class App extends React.Component {
   // var primaryColor = '#5202FF';
 render(){
@@ -42,6 +43,8 @@ render(){
     <Route path="/swaprequests">
       <SwapReqsTab />
     </Route> 
+
+    <Route path="/status/:id" component={Status} />
   </Switch>
   </div>
   </Router>

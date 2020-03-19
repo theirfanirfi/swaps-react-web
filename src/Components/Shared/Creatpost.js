@@ -21,7 +21,7 @@ export default class Sidebar extends React.Component {
             <div className="row">
               <div className="col-md-7 col-sm-7">
                 <div className="form-group">
-                  <img src="images/users/user-1.jpg" alt="" className="profile-photo-md" />
+                  <img src={process.env.PUBLIC_URL+"/images/users/user-1.jpg"} alt="" className="profile-photo-md" />
                   <textarea name="texts" id="exampleTextarea" cols={30} rows={1} className="form-control" onChange={(text) => {this.setState({value: text.target.value})}} placeholder="Write what you wish"  >
                   {this.state.value}
                   </textarea>
