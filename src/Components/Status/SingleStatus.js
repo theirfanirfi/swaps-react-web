@@ -236,7 +236,7 @@ return "/status/"+this.props.status.status_id;
           <img src={this.props.status.profile_image} alt="user" className="profile-photo-md pull-left" />
           <div className="post-detail">
             <div className="user-info">
-              <h5><a href="timeline.html" className="profile-link">{this.props.status.name}</a>{this.tagUsers()}</h5>
+              <h5><Link to={"/profile/"+this.props.status.user_id} className="profile-link">{this.props.status.name}</Link>{this.tagUsers()}</h5>
               
               
               <p className="text-muted">{this.props.status.created_at}</p>

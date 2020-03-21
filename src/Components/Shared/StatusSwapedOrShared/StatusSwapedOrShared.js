@@ -18,7 +18,7 @@ export default class StatusSwapedOrShared extends React.Component {
     }
 
     rateStatus(){
-        var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+        var token = Connection.getToken();
         var url = Connection.getBaseUrl();
         url += "status/rateStatus?status_id="+this.props.status.status_id+"&rating="+this.state.stars+"&token="+token;
         // var url = "http://192.168.10.6/swap/public/api/status/rateStatus?status_id="+this.props.status.status_id+"&rating="+this.state.stars+"&token="+token;

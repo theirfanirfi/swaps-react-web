@@ -12,6 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Connection from '../Connection.js';
 import StatusSwapedOrShared from "../Shared/StatusSwapedOrShared/StatusSwapedOrShared.js";
 
+import {
+  Link
+} from "react-router-dom";
+
 export default class SingleBrowseStatus extends React.Component {
 	constructor(props) {
   super(props);
@@ -55,7 +59,8 @@ unShare = status_id => {
         label: 'Yes',
         onClick: () => {
 
-          var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+          var token = Connection.getToken();
+
           var url = Connection.getBaseUrl();
           url += "ushares?status_id="+status_id+"&token="+token;
           fetch(url)
@@ -109,7 +114,7 @@ likeStatus = status_id =>{
 
   // toast.success('Status liked',{containerId: 'B'});
 
-  var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+  var token = Connection.getToken();
   var url = Connection.getBaseUrl();
   url += "likes?status_id="+status_id+"&token="+token;
   fetch(url)
@@ -124,7 +129,7 @@ likeStatus = status_id =>{
 
 
 shareStatus = status_id =>{
-  var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+  var token = Connection.getToken();
   var url = Connection.getBaseUrl();
   url += "shares?status_id="+status_id+"&token="+token;
   //var url = "http://192.168.10.6/swap/public/api/shares?status_id="+status_id+"&token="+token;
@@ -172,7 +177,8 @@ commentMade = commentt => {
 }
 
 fetchComments = status_id => {
-  var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+  var token = Connection.getToken();
+
   var url = Connection.getBaseUrl();
   url += "getcomments?status_id="+status_id+"&token="+token;
   // var url = "http://192.168.10.6/swap/public/api/getcomments?status_id="+status_id+"&token="+token;
@@ -212,12 +218,12 @@ tagUsers(){
         {/* <img src="images/post-images/1.jpg" alt="post-image" className="img-responsive post-image" /> */}
         
         <div className="post-container">
-          <img src={this.props.status.poster_profile_image} alt="user" className="profile-photo-md pull-left" />
+          <img src={this.props.status.profile_image} alt="user" className="profile-photo-md pull-left" />
           <div className="post-detail">
-          <StatusSwapedOrShared status={this.props.status} />
+          {/* <StatusSwapedOrShared status={this.props.status} /> */}
 
             <div className="user-info">
-              <h5><a href="timeline.html" className="profile-link">{this.props.status.poster_user_name}</a>{this.tagUsers()}</h5>
+              <h5><Link to={"/profile/"+this.props.status.user_id} className="profile-link">{this.props.status.name}</Link>{this.tagUsers()}</h5>
               
               
               <p className="text-muted">{this.props.status.created_at}</p>
@@ -236,6 +242,14 @@ tagUsers(){
     <a  style={{color:this.statusActionColors('like',this.state.isLiked)}} className="btn"><i onClick={() => this.likeStatus(this.props.status.status_id)} className="icon ion-heart" /> {this.state.likescount}</a>
     <a className="btn " style={{color:'gray'}}><i className="icon ion-share" onClick={() => this.shareStatus(this.props.status.status_id)}   /> {this.state.sharecount}</a>
     <a className="btn text-red"><i className="fa fa-comment" onClick={() => this.showComments(this.props.status.status_id)} /> {this.props.status.comments_count}</a>
+
+
+    <a className="btn pull-right"><i className="fa fa-plus" onClick={() => this.showComments(this.props.status.status_id)} />
+    &nbsp; Swap
+    </a>
+
+
+
             </div>
             <div style={{display: this.state.visibility ? 'block' : 'none'}} >
             {this.state.comblock}

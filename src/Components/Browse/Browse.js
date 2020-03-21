@@ -16,14 +16,14 @@ export default class StatusContents extends React.Component {
      async componentDidMount(){
       var token = Connection.getToken();
       var url = Connection.getBaseUrl();
-      url += 'swaps?token='+token;
+      url += 'status/discoverStatuses?token='+token;
       fetch(url)
       .then(res => res.json())
       .then(text => {
         if(text.isAuthenticated){
           if(text.isFound){
             this.setState({
-              statuses: text.swaps,
+              statuses: text.statuses,
               loading: false,
             });
           }else {
