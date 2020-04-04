@@ -2,11 +2,34 @@ import React from "react";
 import {
   Link
 } from "react-router-dom";
+import TopBarChatList from  '../Chat/TopBarChatList.js';
+import Connection from "../Connection.js";
+import TopbarChatList from "../Chat/TopBarChatList.js";
 
 export default class Topbar extends React.Component {
 	constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: '',participants: []};
+    }
+
+    async componentDidMount(){
+      var url = Connection.getBaseUrl()+"participants?token="+Connection.getToken();
+      fetch(url)
+      .then(response => response.json())
+      .then(res => {
+       if(res.isAuthenticated){
+         if(res.isFound){
+           var par = res.participants;
+           var mapedParticipants = par.map((e,i) => {
+             return <TopbarChatList message={e} />
+           });
+
+           this.setState({
+             participants: mapedParticipants
+           });
+         }
+       }
+      });
     }
 
     render(){
@@ -34,6 +57,19 @@ export default class Topbar extends React.Component {
               <li ><Link to="/browse"  style={{fontSize: '18px',color:'#B401FF'}}>Browse</Link></li>
               <li ><Link to="/notifications" style={{fontSize: '18px',color:'#B401FF'}}>Notifications</Link></li>
               <li ><Link to="/swaprequests" style={{fontSize: '18px',color:'#B401FF'}}>Swap Requests</Link></li>
+              <li className="dropdown" style={{height:'50px'}}>
+             
+  <button className="dropdown-toggle" style={{border:'none',backgroundColor:'white',color:'#B401FF',fontSize: '18px'}} id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Messages
+    <span className="caret" style={{color:'#B401FF'}}></span>
+  </button>
+  <ul style={{minWidth:'300px',height:'350px',overflow:'scroll'}} className="dropdown-menu" aria-labelledby="dropdownMenu1">
+    {this.state.participants}
+
+    {/* <li role="separator" className="divider"></li>
+    <li><a href="#">Separated link</a></li> */}
+  </ul>
+              </li>
 <li className="hidden-sm">
 <form className="navbar-form navbar-right ">
               <div className="form-group">
@@ -68,6 +104,19 @@ export default class Topbar extends React.Component {
               <li ><Link to="/notifications" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-bell" /></Link></li>
               <li ><Link to="/swaprequests" style={{fontSize: '14px',color:'#B401FF'}}>Swap Requests</Link></li>
               <li ><Link to="/profile" style={{fontSize: '24px',color:'#B401FF'}}><i className="fa fa-user" /></Link></li>
+            
+              <li>
+              <button className="dropdown-toggle" style={{border:'none',backgroundColor:'white',color:'#B401FF',fontSize: '18px'}} id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Messages
+    <span className="caret" style={{color:'#B401FF'}}></span>
+  </button>
+  <ul style={{minWidth:'300px',height:'350px',overflow:'scroll'}} className="dropdown-menu" aria-labelledby="dropdownMenu1">
+    {this.state.participants}
+
+    {/* <li role="separator" className="divider"></li>
+    <li><a href="#">Separated link</a></li> */}
+  </ul>
+              </li>
 
                 </ul>
               </div>

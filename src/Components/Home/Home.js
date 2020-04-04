@@ -9,6 +9,7 @@ import Sidebar from "../Shared/Sidebar.js";
 import Creatpost from "../Shared/Creatpost.js";
 import StatusContents from "./StatusContents.js";
 import WhoToFollow from "../Shared/WhoToFollow.js";
+import ChatWindow from "../Chat/ChatWindow.js";
 export default class Home extends React.Component {
 	constructor(props) {
   super(props);
@@ -43,7 +44,7 @@ export default class Home extends React.Component {
     	</div>
     </div>
 {/* main content ended */}
-
+{/* <ChatWindow /> */}
 			</div>
 			);
 	}
