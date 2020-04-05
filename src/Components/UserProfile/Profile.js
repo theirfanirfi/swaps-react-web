@@ -32,6 +32,7 @@ else {
 }
 
 componentDidMount(){
+	var profile_id = this.props.match.params.id;
 	var url = Connection.getBaseUrl()+'profile/getProfileStatsr?token='+Connection.getToken();
 	fetch(url)
 	.then(res => res.json())

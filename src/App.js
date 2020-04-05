@@ -15,6 +15,7 @@ import NotificationsTab from './Components/Notifications/NotificationsTab';
 import SwapReqsTab from './Components/SwapRequests/SwapReqsTab';
 import Status from './Components/Status/Status.js';
 import Chat from './Components/Chat/Chat.js';
+import Search from './Components/Search/Search.js';
 
 
 export default class App extends React.Component {
@@ -51,6 +52,7 @@ render(){
 
     <Route path="/status/:id" component={Status} />
     <Route path="/chat/:id" component={Chat} />
+    <Route path="/search/:s" component={Search} />
   </Switch>
   </div>
   </Router>

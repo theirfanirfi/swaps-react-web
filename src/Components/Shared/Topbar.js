@@ -1,17 +1,23 @@
 import React from "react";
 import {
-  Link
+  Link,
+  withRouter
 } from "react-router-dom";
 import TopBarChatList from  '../Chat/TopBarChatList.js';
 import Connection from "../Connection.js";
 import TopbarChatList from "../Chat/TopBarChatList.js";
 
-export default class Topbar extends React.Component {
+ class Topbar extends React.Component {
 	constructor(props) {
         super(props);
-        this.state = {value: '',participants: []};
+        this.state = {value: '',participants: [],searchValue: ''};
     }
 
+    goOnSearch = () => {
+     // let history = useHistory();
+      let path = "/search/"+this.state.searchValue;
+      this.props.history.push(path);
+    }
     async componentDidMount(){
       var url = Connection.getBaseUrl()+"participants?token="+Connection.getToken();
       fetch(url)
@@ -74,7 +80,17 @@ export default class Topbar extends React.Component {
 <form className="navbar-form navbar-right ">
               <div className="form-group">
                 <i className="icon ion-android-search" />
-                <input style={{borderColor: '#B401FF',borderWidth:'2',color:'#B401FF'}} type="number" className="form-control" placeholder="Search friends, photos, videos" />
+                <input style={{borderColor: '#B401FF',borderWidth:'2',color:'#B401FF'}} type="text" className="form-control" placeholder="Search statuses, users" onKeyDown={(event) => {
+                
+                if(event.keyCode == 13){
+                  event.preventDefault();
+                  this.goOnSearch();
+                 }else {
+                   this.setState({
+                     searchValue: event.target.value
+                   })
+                 }
+                }} />
               </div>
             </form>
 </li>
@@ -127,3 +143,5 @@ export default class Topbar extends React.Component {
     }
 
 }
+
+export default withRouter(Topbar);
