@@ -30,7 +30,7 @@ export default class ChatWindow extends React.Component {
             chatWith: res.messages[0].amISender ? res.messages[0].rec_name : res.messages[0].sender_name
 
           },() => {
-            //console.log(this.state.messages);
+            this.scrollToBottom();
           })
         }
       })
