@@ -67,7 +67,7 @@ unShare = status_id => {
            if(res.UnShared){
             toast.success('Status liked',{containerId: 'B'});
            }else if(res.isShared){
-             
+
            }
             // this.setState({
             //   sharecount: res.StatusLikes,
@@ -97,9 +97,9 @@ componentDidMount(){
 statusActionColors(action,status){
   if(action == 'like'){
     if(this.state.isLiked){
-     return "red"; 
+     return "red";
     }else {
-      return "gray"; 
+      return "gray";
     }
   }else if(action == 'share'){
 
@@ -155,21 +155,21 @@ commentMade = commentt => {
   this.setState({
     comblock: comp,
   }
-  
+
   , () => {
     this.fetchComments(commentt.status_id);
   }
-  
+
   );
 }else {
   this.setState({
     comblock: com
   }
-  
+
   , () => {
     this.fetchComments(commentt.status_id);
   }
-  
+
   );
 }
   // console.log("single: "+comment.comment);
@@ -223,9 +223,9 @@ return "/status/"+this.props.status.status_id;
           <img src={this.props.status.profile_image} alt="user" className="profile-photo-md pull-left" />
           <div className="post-detail">
             <div className="user-info">
-              <h5><Link to={"/profile/"+this.props.status.user_id} className="profile-link">{this.props.status.name}</Link>{this.tagUsers()}</h5>
-              
-              
+              <h5><Link to={"/profile/"} className="profile-link">{this.props.status.name}</Link>{this.tagUsers()}</h5>
+
+
               <p className="text-muted">{this.props.status.created_at}</p>
             </div>
 

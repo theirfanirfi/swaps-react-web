@@ -1,10 +1,10 @@
 export default {
     getBaseUrl(){
-       return 'http://192.168.10.2/swap/public/api/';
+       return 'http://192.168.10.9/swap/public/api/';
     }
     ,
     getWebUrl(){
-       return 'http://192.168.10.2/swap/public/';
+       return 'http://192.168.10.9/swap/public/';
     },
 
     getToken(){

@@ -1,40 +1,39 @@
 import React from "react";
 import Cover from './Cover.js';
 import Topbar from "../Shared/Topbar.js";
+import StatusesProfileTab from '../Shared/Profile/StatusesProfileTab.js';
+import SwapsProfileTab from '../Shared/Profile/SwapsProfileTab.js';
 import Connection from '../Connection.js';
 import ClipLoader from "react-spinners/ClipLoader";
-import StatusContents from "../Home/StatusContents.js";
-import SwapContents from "../Swaps/SwapContents.js";
-export default class Profile extends React.Component {
+export default class UserProfile extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			value: <StatusesProfileTab />,
 			stats: [],
 			user: [],
-			statuses: [],
-			swaps: [],
 			loading: true,
-			value: <StatusContents />,
-
 		};
 	}
 
 
 	renderView = v => {
 		if (v == 'statuses') {
-			this.setState({ value: <StatusContents /> });
+			this.setState({ value: <StatusesProfileTab /> });
 		} else if (v == 'swaps') {
-			this.setState({ value: <SwapContents /> });
+			this.setState({ value: <SwapsProfileTab /> });
 
 
 		}
 		else {
-			this.setState({ value: <StatusContents /> });
+			this.setState({ value: <StatusesProfileTab /> });
 		}
 	}
 
 	componentDidMount() {
+		var profile_id = this.props.match.params.id;
+		alert(profile_id);
 		var url = Connection.getBaseUrl() + 'profile/getProfileStatsr?token=' + Connection.getToken();
 		fetch(url)
 			.then(res => res.json())
@@ -44,8 +43,7 @@ export default class Profile extends React.Component {
 						this.setState({
 							stats: res.stats,
 							user: res.user,
-							statuses: res.statuses,
-							loading: false,
+							loading: false
 						})
 					} else {
 						this.setState({
@@ -70,6 +68,7 @@ export default class Profile extends React.Component {
 
 		return (
 			<div>
+				<h1>Working</h1>
 				<Topbar callBack={this.renderView} />
 				{/* main content */}
 				<div id="page-contents">
