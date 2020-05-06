@@ -10,8 +10,10 @@ export default class UserProfile extends React.Component {
 		super(props);
 
 		this.state = {
-			value: <StatusesProfileTab />,
+			view: '',
 			stats: [],
+			statuses: [],
+			swaps: [],
 			user: [],
 			loading: true,
 		};
@@ -20,14 +22,14 @@ export default class UserProfile extends React.Component {
 
 	renderView = v => {
 		if (v == 'statuses') {
-			this.setState({ value: <StatusesProfileTab /> });
+			this.setState({ view: <StatusesProfileTab statuses={this.state.statuses} /> });
 		} else if (v == 'swaps') {
-			this.setState({ value: <SwapsProfileTab /> });
+			this.setState({ view: <SwapsProfileTab swaps={this.state.swaps} /> });
 
 
 		}
 		else {
-			this.setState({ value: <StatusesProfileTab /> });
+			this.setState({ view: <StatusesProfileTab /> });
 		}
 	}
 
@@ -43,6 +45,9 @@ export default class UserProfile extends React.Component {
 						this.setState({
 							stats: res.stats,
 							user: res.user,
+							statuses: res.statuses,
+							swaps: res.swaps,
+							view: <StatusesProfileTab statuses={res.statuses} />,
 							loading: false
 						})
 					} else {
@@ -107,7 +112,7 @@ export default class UserProfile extends React.Component {
 					<div className="row">
 						<div className="col-md-3"></div>
 						<div className="col-md-7">
-							{this.state.value}
+							{this.state.view}
 
 						</div>
 

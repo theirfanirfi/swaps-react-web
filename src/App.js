@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Redirect } from 'react';
 import Home from './Components/Home/Home.js';
 import './App.css';
 
@@ -29,7 +29,7 @@ export default class App extends React.Component {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/home">
+            <Route path="/home">
               <Home />
             </Route>
             <Route exact path="/profile/" component={Profile} />

@@ -10,44 +10,50 @@ import Sidebar from "../Shared/Sidebar.js";
 import Creatpost from "../Shared/Creatpost.js";
 import WhoToFollow from "../Shared/WhoToFollow.js";
 import Browse from './Browse.js';
+import Dialog from 'react-dialog'
 export default class BrowseTab extends React.Component {
 	constructor(props) {
-  super(props);
+		super(props);
 
-//   this.state = {value: <StatusContents />};
-}
+		this.state = { isDialogOpen: true, };
+	}
+
+	openDialog = () => this.setState({ isDialogOpen: true })
+
+	handleClose = () => this.setState({ isDialogOpen: false })
+
+	render() {
 
 
-	render(){
 
 
-	
-
-		return(
+		return (
 			<div>
 				<Topbar callBack={this.renderView} />
-{/* main content */}
-        <div id="page-contents">
-    	<div className="container-fluid">
-    		<div className="row">
-          <Sidebar />
+				{/* main content */}
+				<div id="page-contents">
+					<div className="container-fluid">
+						<div className="row">
+							<Sidebar />
 
-          <div className="col-md-7">
-            <Creatpost />
-            
-<Browse />
-</div>
+							<div className="col-md-7">
+								<Creatpost />
 
-{/* right bar */}
-<WhoToFollow />
 
-{/* right bar ended */}
-</div>
-    	</div>
-    </div>
-{/* main content ended */}
+
+								<Browse />
+							</div>
+
+							{/* right bar */}
+							<WhoToFollow />
+
+							{/* right bar ended */}
+						</div>
+					</div>
+				</div>
+				{/* main content ended */}
 
 			</div>
-			);
+		);
 	}
 }
