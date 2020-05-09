@@ -4,14 +4,15 @@ import { Carousel } from 'react-responsive-carousel';
 import PropTypes from 'prop-types';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
-// import Comments from '../Shared/Comment/Comments';
-// import RatingBar from '../Shared/RatingBar/RatingBar';
-// import PostComment from '../Shared/Comment/PostComment';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Connection from '../../Connection.js';
-// import StatusSwapedOrShared from "../Shared/StatusSwapedOrShared/StatusSwapedOrShared.js";
 import SingleStatus from '../../Shared/SingleStatus.js';
+
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import { DateRangePicker } from 'react-dates';
+import moment from 'moment';
 
 export default class RequestRow extends React.Component {
     constructor(props) {
@@ -26,7 +27,10 @@ export default class RequestRow extends React.Component {
 
     state = {
         approve: 'Approve',
-        decline: 'Decline'
+        decline: 'Decline',
+        startDate: null,
+        endDate: null,
+        focusedInput: ''
     }
 
     /*
@@ -94,12 +98,24 @@ export default class RequestRow extends React.Component {
     }
 
     componentDidMount() {
-        //   this.setState({
-        //     status: this.props.status,
-        //     likescount: this.props.status.likes_count,
-        //     isLiked: this.props.status.isLiked,
-        //     sharecount: this.props.status.shares_count
-        //   });
+        this.setState({
+            startDate: moment(this.toDate(this.props.notification.swap_start_date)),
+            endDate: moment(this.toDate(this.props.notification.swap_end_date)),
+        })
+    }
+
+    toDate(timestamp) {
+        var d = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(timestamp);
+        // var tempDate = new Date(timestamp);
+        // return tempDate.getFullYear() + '-' + (tempDate.getMonth() + 1) + '-' + tempDate.getDate();
+        d = d.replace('/', '-');
+        d = d.replace('/', '-');
+        // return d.substring(0, 10);
+        return d;
+    }
+
+    requestModifcation() {
+        alert(this.props.notification.swap_id);
     }
 
 
@@ -107,20 +123,43 @@ export default class RequestRow extends React.Component {
 
         return (
             <div className="feed-item">
-                <img src={this.props.notification.profile_image} alt="user" className="img-responsive profile-photo-sm" />
+                <img src={this.props.notification.swaper_profile_image} alt="user" className="img-responsive profile-photo-sm" />
                 <div className="live-activity">
-                    <p><a href="#" className="profile-link">{this.props.notification.name}</a> wants to swap a status with you.
-                    <p><strong>From: </strong></p>
+                    <p><a href="#" className="profile-link">{this.props.notification.swaper_name}</a> wants to swap a status with you.
+                    <p>
+                            <DateRangePicker
+                                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate }, () => {
+                                    console.log(startDate + " : " + endDate)
+                                })} // PropTypes.func.isRequired,
+                                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                            />
+
+                        </p>
+
+                    </p>
+                    <p>
+
                         <span>
-                            <button style={{ marginRight: 4 }} class="btn-sm btn-danger pull-right" onClick={() => this.decline()}>{this.state.decline}</button>
-                            <button style={{ marginRight: 4 }} class="btn-sm btn-success pull-right" onClick={() => this.approve()}>{this.state.approve}</button>
+                            <button style={{ marginRight: 4 }} class="btn-sm btn-danger" onClick={() => this.decline()}>{this.state.decline}</button>
+                            <button style={{ marginRight: 4 }} class="btn-sm btn-success" onClick={() => this.approve()}>{this.state.approve}</button>
+                            <button className="btn-sm btn-info" onClick={() => this.requestModifcation()}>Request modification</button>
+
                         </span>
                     </p>
 
                     <div style={{ display: 'flex', marginTop: 12, justifyContent: 'center', alignItems: 'center', width: '80%' }}>
                         <SingleStatus status={this.props.notification} />
                     </div>
+
+
                     <p className="text-muted">{this.props.notification.created_at}</p>
+
+
 
 
                 </div>

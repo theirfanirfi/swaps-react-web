@@ -1988,3 +1988,7 @@ ul.contact li i{
   color: #333;
   font-weight: 600;
 }
+
+ul li {
+  list-style-type: none;
+}

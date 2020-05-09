@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import Profile from './Components/Profile/Profile.js';
+import EditProfile from './Components/EditProfile/EditProfile.js'
 import UserProfile from './Components/UserProfile/UserProfile.js';
 import BrowseTab from './Components/Browse/BrowseTab';
 import SwapsTab from './Components/Swaps/SwapsTab';
@@ -49,6 +50,10 @@ export default class App extends React.Component {
 
             <Route path="/swaprequests">
               <SwapReqsTab />
+            </Route>
+
+            <Route path="/editprofile">
+              <EditProfile />
             </Route>
 
             <Route path="/status/:id" component={Status} />

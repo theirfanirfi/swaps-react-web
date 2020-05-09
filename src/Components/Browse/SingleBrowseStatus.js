@@ -22,6 +22,7 @@ import {
 } from "react-share";
 import { Redirect } from 'react-router-dom'
 import SwapComponent from "./SwapComponent";
+import FollowedUserListComponent from "./FollowedUserListComponent";
 
 
 export default class SingleBrowseStatus extends React.Component {
@@ -239,9 +240,7 @@ export default class SingleBrowseStatus extends React.Component {
     });
   }
 
-  swapWith() {
 
-  }
 
   render() {
     return (

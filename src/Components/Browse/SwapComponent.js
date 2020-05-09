@@ -5,6 +5,8 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import Connection from '../Connection.js';
+import SwapedWithUserRow from './SwapedWithUserRow.js';
+import FollowedUserListComponent from "./FollowedUserListComponent.js";
 
 
 export default class SwapComponent extends React.Component {
@@ -35,21 +37,9 @@ export default class SwapComponent extends React.Component {
         swapOn: 'Swap',
     }
 
-    onChange = date => {
-        var datees = this.state.dates;
-        datees.push(date);
-        this.setState({
-            dates: datees,
-            startDate: this.state.dates,
-
-        }, () => {
-            console.log('date added ' + date);
-        });
-    }
-
-    swapRequest() {
+    swapRequest = swap_with_id => {
         var url = Connection.getBaseUrl() + 'followers/swapStatus?token=' + Connection.getToken() + '&on=' + this.state.swapOn + '&' +
-            '&status_id=' + this.props.status_id + '&startdate=' + this.state.startDate + '&enddate=' + this.state.endDate;
+            '&status_id=' + this.props.status_id + '&startdate=' + this.state.startDate + '&enddate=' + this.state.endDate + '&id=' + swap_with_id;
 
         fetch(url)
             .then(res => res.json())
@@ -66,6 +56,8 @@ export default class SwapComponent extends React.Component {
             })
     }
 
+
+
     render() {
         return (
             <div>
@@ -74,7 +66,7 @@ export default class SwapComponent extends React.Component {
 
                 <select className="form-control" onChange={(option) => {
                     this.setState({
-                        swapOn: option.target.value
+                        swapOn: option.target.value,
                     })
                 }}>
                     <option value="Swap">Swap App</option>
@@ -98,7 +90,9 @@ export default class SwapComponent extends React.Component {
                 <br />
                 <br />
                 <br />
-                <button style={{ marginTop: '14px' }} className="btn-sm btn-primary" onClick={() => this.swapRequest()}>Swap</button>
+                <div>
+                    <FollowedUserListComponent callBack={this.swapRequest} />
+                </div>
             </div >
         )
     }
