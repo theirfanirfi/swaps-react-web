@@ -4,6 +4,7 @@ import RatingBar from './RatingBar.js';
 import {
   Link
 } from "react-router-dom";
+import Connection from "../Connection.js";
 export default class Cover extends React.Component {
 
   state = {
@@ -36,7 +37,7 @@ export default class Cover extends React.Component {
   }
   render() {
     return (
-      <div className="timeline-cover">
+      <div className="timeline-cover" style={{ backgroundImage: "url('" + Connection.getWebUrl() + "profile/" + this.props.user.cover_image + "')" }}>
         {/*Timeline Menu for Large Screens*/}
 
         <div className="timeline-nav-bar hidden-sm hidden-xs">

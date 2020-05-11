@@ -10,8 +10,9 @@ import Connection from "../Connection.js";
 export default class Cover extends React.Component {
 
   state = {
-    statuses: 'active',
-    swaps: '',
+    profile: 'active',
+    smlinks: '',
+    passwordTab: '',
     cover_image: this.props.user.cover_image,
     profile_image: this.props.user.profile_image,
     save_cover_image: false,
@@ -93,19 +94,29 @@ export default class Cover extends React.Component {
   }
 
   switchTab = (t) => {
-    if (t == 'statuses') {
+    if (t == 'profile') {
       this.setState({
-        statuses: 'active',
-        swaps: '',
+        profile: 'active',
+        smlinks: '',
+        passwordTab: '',
       }, () => {
-        this.props.tab(t);
+        this.props.tab(t, this.props.user);
       })
-    } else {
+    } else if (t == 'sm') {
       this.setState({
-        statuses: '',
-        swaps: 'active',
+        profile: '',
+        smlinks: 'active',
+        passwordTab: '',
       }, () => {
-        this.props.tab(t);
+        this.props.tab(t, this.props.user);
+      })
+    } else if (t == 'password') {
+      this.setState({
+        profile: '',
+        smlinks: '',
+        passwordTab: 'active',
+      }, () => {
+        this.props.tab(t, this.props.user);
       })
     }
   }
@@ -145,8 +156,9 @@ export default class Cover extends React.Component {
                 <RatingBar stats={this.props.stats} />
               </p>
               <ul className="list-inline profile-menu">
-                <li><Link onClick={() => this.switchTab('statuses')} className={this.state.statuses}>Statuses {this.props.stats.statuses}</Link></li>
-                <li><Link onClick={() => this.switchTab('swaps')} className={this.state.swaps}>Swaps {this.props.stats.swaps}</Link></li>
+                <li><Link onClick={() => this.switchTab('profile')} className={this.state.profile}>Profile </Link></li>
+                <li><Link onClick={() => this.switchTab('sm')} className={this.state.smlinks}>Social Meida Links</Link></li>
+                <li><Link onClick={() => this.switchTab('password')} className={this.state.passwordTab}>Change Password</Link></li>
                 {/* <li><a href="timeline-album.html">Album</a></li>
                     <li><a href="timeline-friends.html">Friends</a></li> */}
               </ul>
@@ -175,8 +187,9 @@ export default class Cover extends React.Component {
               <RatingBar stats={this.props.stats} />
 
               <ul className="list-inline">
-                <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('statuses')} className={this.state.statuses}>Statuses {this.props.stats.statuses}</Link></li>
-                <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('swaps')} className={this.state.swaps}>Swaps {this.props.stats.swaps}</Link></li>
+                <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('profile')} className={this.state.profile}>Profile</Link></li>
+                <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('sm')} className={this.state.smlinks}>Social Meida Links</Link></li>
+                <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('password')} className={this.state.passwordTab}>Change Password</Link></li>
                 {/* <li><a href="timeline-album.html">Album</a></li>
                   <li><a href="timeline-friends.html">Friends</a></li> */}
               </ul>
@@ -186,13 +199,6 @@ export default class Cover extends React.Component {
                   cover_image: URL.createObjectURL(file.target.files[0]),
                   save_cover_image: true
                 })
-                // let reader = new FileReader()
-                // reader.readAsDataURL(f)
-                // reader.onload = () => {
-                //   this.setState({
-                //     cover_image: URL.createObjectURL(event.target.files[0])
-                //   })
-                // }
               }} placeholder="select cover image" accept="image/*" />
               <p>
                 {this.state.save_cover_image &&
