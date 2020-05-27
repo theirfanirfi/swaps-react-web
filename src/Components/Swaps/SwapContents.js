@@ -15,7 +15,7 @@ export default class SwapContents extends React.Component {
 
 
   async componentDidMount() {
-    var token = 'JDJ5JDEwJFdGdW14bmpZUTEvMVIuNmtLT1FJQXU5Lllva28weGJibXgyVloyMjM3M0kveEFGbEkueGtt';
+    var token = Connection.getToken();
     var url = Connection.getBaseUrl();
     url += 'swaps?token=' + token;
     fetch(url)

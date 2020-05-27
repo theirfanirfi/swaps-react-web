@@ -15,14 +15,8 @@ import Connection from '../Connection.js';
 import {
   Link
 } from "react-router-dom";
-import { Twitter, Facebook, Pinterest, Telegram, Tumblr, Linkedin } from 'react-social-sharing'
-import {
-  FacebookShareCount,
-  TwitterShareButton, TwitterIcon
-} from "react-share";
-import { Redirect } from 'react-router-dom'
+
 import SwapComponent from "./SwapComponent";
-import FollowedUserListComponent from "./FollowedUserListComponent";
 
 
 export default class SingleBrowseStatus extends React.Component {

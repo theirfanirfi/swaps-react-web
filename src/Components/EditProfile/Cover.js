@@ -180,29 +180,34 @@ export default class Cover extends React.Component {
         <div className="row">
           <div className="navbar-mobile hidden-lg hidden-md" style={{ position: 'initial' }}>
             <div className="profile-info">
-              <img src={this.state.profile_image} alt="" className="img-responsive profile-photo" style={{ width: '40%', height: '10%' }} />
+              <img src={this.getProfileImage()} alt="" className="img-responsive profile-photo" style={{ width: '40%', height: '10%' }} />
+
+              <p>
+                <ImageUploader label='' fileContainerStyle={{ all: 'none', background: 0 }} withIcon={false} buttonText="Change Profile image" onChange={(file) => this.changeProfileImage(file)} accept="image/*" />
+              </p>
+              <p>
+                {this.state.save_profile_image &&
+                  <a onClick={() => this.uploadProfileImage()} className="btn-sm btn-default" style={{ textDecoration: 'none', cursor: 'pointer' }}> Save</a>
+                }
+              </p>
             </div>
             <div className="mobile-menu">
               <h4>{this.props.user.name}</h4>
               <RatingBar stats={this.props.stats} />
 
-              <ul className="list-inline">
+              <ul className="list-inline" style={{ backgroundColor: 'black', opacity: .6 }}>
                 <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('profile')} className={this.state.profile}>Profile</Link></li>
                 <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('sm')} className={this.state.smlinks}>Social Meida Links</Link></li>
                 <li><Link style={{ color: 'white' }} onClick={() => this.switchTab('password')} className={this.state.passwordTab}>Change Password</Link></li>
                 {/* <li><a href="timeline-album.html">Album</a></li>
                   <li><a href="timeline-friends.html">Friends</a></li> */}
               </ul>
-              <input type="file" onChange={(file) => {
-                var f = file.target.files[0]
-                this.setState({
-                  cover_image: URL.createObjectURL(file.target.files[0]),
-                  save_cover_image: true
-                })
-              }} placeholder="select cover image" accept="image/*" />
+              <p>
+                <ImageUploader label='' fileContainerStyle={{ all: 'none', background: 0 }} withIcon={false} buttonText="Change Cover image" onChange={(file) => this.changeCoverImage(file)} accept="image/*" />
+              </p>
               <p>
                 {this.state.save_cover_image &&
-                  <a> Save</a>
+                  <a onClick={() => this.uploadCoverImage()} className="btn-sm btn-default" style={{ textDecoration: 'none', cursor: 'pointer' }}> Save</a>
                 }
               </p>
             </div>

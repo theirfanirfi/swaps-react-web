@@ -35,7 +35,6 @@ export default class UserProfile extends React.Component {
 
 	componentDidMount() {
 		var profile_id = this.props.match.params.id;
-		alert(profile_id);
 		var url = Connection.getBaseUrl() + 'profile/getProfileStatsr?token=' + Connection.getToken();
 		fetch(url)
 			.then(res => res.json())

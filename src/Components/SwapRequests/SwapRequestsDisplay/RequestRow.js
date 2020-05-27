@@ -115,7 +115,41 @@ export default class RequestRow extends React.Component {
     }
 
     requestModifcation() {
-        alert(this.props.notification.swap_id);
+        var url = Connection.getBaseUrl() + "swaps/requestmodification?token=" + Connection.getToken() + '&id=' + this.props.notification.swap_id +
+            '&sd=' + this.state.startDate + '&ed=' + this.state.endDate;
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                alert(res.message);
+            })
+    }
+
+    isModificationrequestedAndByWhom() {
+        //by swaper or swapped with
+        if (this.props.notification.is_modification_requested == 1 && this.props.notification.is_modification_requested_by_me == 1) {
+            return (
+                <div>
+                    <button style={{ marginRight: 4 }} class="btn-sm btn-danger" onClick={() => this.decline()}>{this.state.decline}</button>
+                    <button className="btn-sm btn-info" disabled>You have requested modification</button>
+                </div>
+            )
+        } else if (this.props.notification.is_modification_requested == 1 && this.props.notification.is_modification_requested_by_me == 0) {
+            return (
+                <div>
+                    <button style={{ marginRight: 4 }} class="btn-sm btn-danger" onClick={() => this.decline()}>{this.state.decline}</button>
+                    <button style={{ marginRight: 4 }} class="btn-sm btn-success" onClick={() => this.approve()}>{this.state.approve}</button>
+                    <button className="btn-sm btn-info" onClick={() => this.requestModifcation()}>Modification is Requested</button>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <button style={{ marginRight: 4 }} class="btn-sm btn-danger" onClick={() => this.decline()}>{this.state.decline}</button>
+                    <button style={{ marginRight: 4 }} class="btn-sm btn-success" onClick={() => this.approve()}>{this.state.approve}</button>
+                    <button className="btn-sm btn-info" onClick={() => this.requestModifcation()}>Request Modification</button>
+                </div>
+            )
+        }
     }
 
 
@@ -145,10 +179,7 @@ export default class RequestRow extends React.Component {
                     <p>
 
                         <span>
-                            <button style={{ marginRight: 4 }} class="btn-sm btn-danger" onClick={() => this.decline()}>{this.state.decline}</button>
-                            <button style={{ marginRight: 4 }} class="btn-sm btn-success" onClick={() => this.approve()}>{this.state.approve}</button>
-                            <button className="btn-sm btn-info" onClick={() => this.requestModifcation()}>Request modification</button>
-
+                            {this.isModificationrequestedAndByWhom()}
                         </span>
                     </p>
 

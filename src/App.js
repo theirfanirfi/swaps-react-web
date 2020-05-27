@@ -18,10 +18,14 @@ import SwapReqsTab from './Components/SwapRequests/SwapReqsTab';
 import Status from './Components/Status/Status.js';
 import Chat from './Components/Chat/Chat.js';
 import Search from './Components/Search/Search.js';
-
+import SignUpComponent from './Components/LoginRegister/SignUpComponent.js';
 
 export default class App extends React.Component {
   // var primaryColor = '#5202FF';
+
+  componentDidMount() {
+
+  }
   render() {
     return (
       <Router>
@@ -33,9 +37,9 @@ export default class App extends React.Component {
             <Route path="/home">
               <Home />
             </Route>
-            <Route exact path="/profile/" component={Profile} />
+            <Route exact path="/profile/" ><Profile /></Route>
 
-            <Route exact path="/profile/:id" component={UserProfile} />
+            <Route exact path="/profile/:id" ><UserProfile /></Route>
             <Route path="/browse">
               <BrowseTab />
             </Route>
@@ -56,9 +60,16 @@ export default class App extends React.Component {
               <EditProfile />
             </Route>
 
-            <Route path="/status/:id" component={Status} />
-            <Route path="/chat/:id" component={Chat} />
-            <Route path="/search/:s" component={Search} />
+            <Route path="/signup">
+              <SignUpComponent />
+            </Route>
+
+
+            <Route path="/status/:id" >
+              <Status />
+            </Route>
+            <Route path="/chat/:id" ><Chat /> </Route>
+            <Route path="/search/:s" ><Search /></Route>
           </Switch>
         </div>
       </Router>
