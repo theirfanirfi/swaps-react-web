@@ -1,11 +1,11 @@
 import React from "react";
 import Topbar from "./Topbar.js";
 import { OldSocialLogin as SocialLogin } from 'react-social-login';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import Connection from '../Connection';
 import base64 from 'base-64';
 import { FacebookLoginButton, TwitterLoginButton, InstagramLoginButton, GoogleLoginButton, GithubLoginButton } from "react-social-login-buttons";
-export default class SignUpComponent extends React.Component {
+export default class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -19,20 +19,19 @@ export default class SignUpComponent extends React.Component {
         username: null,
     }
 
-    registerUser() {
-        var url = Connection.getBaseUrl() + "auth/registerr?name=" + this.state.name + "&username=" + this.state.username +
-            "&email=" + this.state.email + "&password=" + this.state.password;
+    loginUser() {
+        var url = Connection.getBaseUrl() + "auth/loginr?email=" + this.state.email + "&password=" + this.state.password;
         fetch(url)
             .then(res => res.json())
             .then(res => {
                 if (res.isError) {
                     alert(res.message);
-                } else if (res.isUserRegistered) {
+                } else if (res.isUser) {
                     if (Connection.setLoginSession(res.user)) {
                         alert(res.message);
 
                     } else {
-                        alert('Error occurred while saving the registeration, please manually login to continue.');
+                        alert('Error occurred while saving the login, please try again.');
                     }
                 } else {
                     alert(res.message);
@@ -57,6 +56,7 @@ export default class SignUpComponent extends React.Component {
                         alert(res.message);
                     } else if (res.isUserRegistered) {
                         if (Connection.setLoginSession(res.user)) {
+
 
                         } else {
                             alert('Error occurred in saving the login credentials. Please try again.');
@@ -101,27 +101,21 @@ export default class SignUpComponent extends React.Component {
                                         callback={this.handleSocialLogin}
                                     >
                                         <FacebookLoginButton >
-                                            <span>Signup with Facebook</span>
+                                            <span>Signin with Facebook</span>
                                         </FacebookLoginButton>
                                     </SocialLogin>
                                     <TwitterLoginButton onClick={() => alert("Hello")} >
-                                        <span>SignUp with Twitter</span>
+                                        <span>Signin with Twitter</span>
                                     </TwitterLoginButton>
                                     <GoogleLoginButton onClick={() => alert("Hello")} >
-                                        <span>SignUp with Google</span>
+                                        <span>Signin with Google</span>
                                     </GoogleLoginButton>
                                     <InstagramLoginButton onClick={() => alert("Hello")} >
-                                        <span>SignUp with Instagram</span>
+                                        <span>Signin with Instagram</span>
                                     </InstagramLoginButton>
                                     <div className="line-divider" />
                                     <div className="form-wrapper">
                                         <form action="#">
-                                            <fieldset className="form-group">
-                                                <input type="text" onChange={(text) => { this.setState({ name: text.target.value }) }} className="form-control" id="example-name0" placeholder="Enter Fullname" />
-                                            </fieldset>
-                                            <fieldset className="form-group">
-                                                <input type="text" onChange={(text) => { this.setState({ username: text.target.value }) }} className="form-control" id="example-name1" placeholder="Enter Username" />
-                                            </fieldset>
                                             <fieldset className="form-group">
                                                 <input type="email" onChange={(text) => { this.setState({ email: text.target.value }) }} className="form-control" id="example-email" placeholder="Enter email" />
                                             </fieldset>
@@ -130,9 +124,9 @@ export default class SignUpComponent extends React.Component {
                                             </fieldset>
                                         </form>
 
-                                        <button onClick={() => this.registerUser()} className="btn-secondary">Signup</button>
+                                        <button onClick={() => this.loginUser()} className="btn-secondary">Signin</button>
                                     </div>
-                                    <a href="#">Already have an account?</a>
+                                    <Link to="/signup">Don't have Account?</Link>
                                     <img className="form-shadow" src="images/bottom-shadow.png" alt="" />
                                 </div>{/* Sign Up Form End */}
                             </div>

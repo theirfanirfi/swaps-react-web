@@ -19,6 +19,7 @@ import Status from './Components/Status/Status.js';
 import Chat from './Components/Chat/Chat.js';
 import Search from './Components/Search/Search.js';
 import SignUpComponent from './Components/LoginRegister/SignUpComponent.js';
+import LoginComponent from './Components/LoginRegister/LoginComponent.js';
 
 export default class App extends React.Component {
   // var primaryColor = '#5202FF';
@@ -62,6 +63,10 @@ export default class App extends React.Component {
 
             <Route path="/signup">
               <SignUpComponent />
+            </Route>
+
+            <Route path="/login">
+              <LoginComponent />
             </Route>
 
 
