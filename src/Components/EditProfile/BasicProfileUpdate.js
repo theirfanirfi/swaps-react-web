@@ -26,7 +26,7 @@ export default class BasicProfileUpdate extends React.Component {
                         fullname: res.profile.name,
                         email: res.profile.email,
                         profile_description: res.profile.profile_description,
-                        description_length: this.state.description_length - res.profile.profile_description.length
+                        // description_length: res.profile.profile_description != null ? this.state.description_length - res.profile.profile_description.length : 200
                     })
                 } else {
                     alert(res.message);

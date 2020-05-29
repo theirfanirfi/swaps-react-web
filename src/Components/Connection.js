@@ -34,4 +34,20 @@ export default {
       user = JSON.parse(user);
       return user.token;
    }
+   ,
+   getSessionUser() {
+      let user = localStorage.getItem('user');
+      user = JSON.parse(user);
+      return user;
+   }
+   ,
+   getProfileImage() {
+      let user = this.getSessionUser();
+      var profile_image = user.profile_image;
+      if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
+         return profile_image;
+      } else {
+         return this.getWebUrl() + "profile/" + profile_image;
+      }
+   }
 }

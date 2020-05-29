@@ -1,11 +1,12 @@
 import React from "react";
 import Topbar from "./Topbar.js";
 import { OldSocialLogin as SocialLogin } from 'react-social-login';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 import Connection from '../Connection';
 import base64 from 'base-64';
 import { FacebookLoginButton, TwitterLoginButton, InstagramLoginButton, GoogleLoginButton, GithubLoginButton } from "react-social-login-buttons";
-export default class SignUpComponent extends React.Component {
+class SignUpComponent extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -17,9 +18,13 @@ export default class SignUpComponent extends React.Component {
         email: null,
         password: null,
         username: null,
+        isLoading: false
     }
 
     registerUser() {
+        var that = this;
+        this.setState({ isLoading: true });
+
         var url = Connection.getBaseUrl() + "auth/registerr?name=" + this.state.name + "&username=" + this.state.username +
             "&email=" + this.state.email + "&password=" + this.state.password;
         fetch(url)
@@ -30,20 +35,20 @@ export default class SignUpComponent extends React.Component {
                 } else if (res.isUserRegistered) {
                     if (Connection.setLoginSession(res.user)) {
                         alert(res.message);
-
+                        that.props.history.push("/home");
                     } else {
                         alert('Error occurred while saving the registeration, please manually login to continue.');
                     }
                 } else {
                     alert(res.message);
                 }
+                this.setState({ isLoading: false });
             })
     }
 
     handleSocialLogin = (user, err) => {
-
-
-        console.log(user);
+        var that = this;
+        this.setState({ isLoading: true });
 
         if (user._profile) {
             user = user._profile;
@@ -57,7 +62,7 @@ export default class SignUpComponent extends React.Component {
                         alert(res.message);
                     } else if (res.isUserRegistered) {
                         if (Connection.setLoginSession(res.user)) {
-
+                            that.props.history.push("/home");
                         } else {
                             alert('Error occurred in saving the login credentials. Please try again.');
                         }
@@ -72,12 +77,11 @@ export default class SignUpComponent extends React.Component {
 
         }
 
+        this.setState({ isLoading: false });
 
     }
 
     render() {
-
-
 
 
         return (
@@ -93,6 +97,15 @@ export default class SignUpComponent extends React.Component {
                             <div className="col-md-7" >
                                 <div className="sign-up-form" style={{ background: 0 }}>
                                     <h2 className="text-white">Swap</h2>
+
+                                    <div style={{ width: '100%', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                                        <ClipLoader
+                                            size={20}
+                                            color={"#123abc"}
+                                            loading={this.state.isLoading}
+                                        />
+                                    </div>
+
                                     <p className="signup-text">Signup now and meet awesome people around the world</p>
 
                                     <SocialLogin
@@ -132,7 +145,7 @@ export default class SignUpComponent extends React.Component {
 
                                         <button onClick={() => this.registerUser()} className="btn-secondary">Signup</button>
                                     </div>
-                                    <a href="#">Already have an account?</a>
+                                    <Link to="/login">Already have an account?</Link>
                                     <img className="form-shadow" src="images/bottom-shadow.png" alt="" />
                                 </div>{/* Sign Up Form End */}
                             </div>
@@ -150,3 +163,5 @@ export default class SignUpComponent extends React.Component {
         );
     }
 }
+
+export default withRouter(SignUpComponent);

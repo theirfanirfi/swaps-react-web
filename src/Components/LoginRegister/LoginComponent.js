@@ -1,11 +1,13 @@
 import React from "react";
 import Topbar from "./Topbar.js";
 import { OldSocialLogin as SocialLogin } from 'react-social-login';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Connection from '../Connection';
 import base64 from 'base-64';
+
+import ClipLoader from "react-spinners/ClipLoader";
 import { FacebookLoginButton, TwitterLoginButton, InstagramLoginButton, GoogleLoginButton, GithubLoginButton } from "react-social-login-buttons";
-export default class LoginComponent extends React.Component {
+class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -17,9 +19,12 @@ export default class LoginComponent extends React.Component {
         email: null,
         password: null,
         username: null,
+        isLoading: false,
     }
 
     loginUser() {
+        var that = this;
+        this.setState({ isLoading: true });
         var url = Connection.getBaseUrl() + "auth/loginr?email=" + this.state.email + "&password=" + this.state.password;
         fetch(url)
             .then(res => res.json())
@@ -29,21 +34,22 @@ export default class LoginComponent extends React.Component {
                 } else if (res.isUser) {
                     if (Connection.setLoginSession(res.user)) {
                         alert(res.message);
-
+                        that.props.history.push('/home');
                     } else {
                         alert('Error occurred while saving the login, please try again.');
                     }
                 } else {
                     alert(res.message);
                 }
+
+                this.setState({ isLoading: false });
+
             })
     }
 
     handleSocialLogin = (user, err) => {
-
-
-        console.log(user);
-
+        this.setState({ isLoading: true });
+        var that = this;
         if (user._profile) {
             user = user._profile;
             var url = Connection.getBaseUrl() + "auth/slogin?net=facebook&name=" + user.firstName + " " + user.lastName +
@@ -56,8 +62,7 @@ export default class LoginComponent extends React.Component {
                         alert(res.message);
                     } else if (res.isUserRegistered) {
                         if (Connection.setLoginSession(res.user)) {
-
-
+                            that.props.history.push('/home');
                         } else {
                             alert('Error occurred in saving the login credentials. Please try again.');
                         }
@@ -72,6 +77,7 @@ export default class LoginComponent extends React.Component {
 
         }
 
+        this.setState({ isLoading: true });
 
     }
 
@@ -85,6 +91,7 @@ export default class LoginComponent extends React.Component {
                 <Topbar />
                 {/* main content */}
                 <div id="page-contents">
+
                     <div className="container-fluid" id="signupform" style={{ height: 1000 }}>
                         <div className="row">
                             <div className="col-md-3">
@@ -93,6 +100,15 @@ export default class LoginComponent extends React.Component {
                             <div className="col-md-7" >
                                 <div className="sign-up-form" style={{ background: 0 }}>
                                     <h2 className="text-white">Swap</h2>
+                                    <div style={{ width: '100%', padding: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                                        <ClipLoader
+                                            size={20}
+                                            color={"#123abc"}
+                                            loading={this.state.isLoading}
+                                        />
+                                    </div>
+
+
                                     <p className="signup-text">Signup now and meet awesome people around the world</p>
 
                                     <SocialLogin
@@ -144,3 +160,5 @@ export default class LoginComponent extends React.Component {
         );
     }
 }
+
+export default withRouter(LoginComponent);

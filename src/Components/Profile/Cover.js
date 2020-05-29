@@ -38,11 +38,26 @@ export default class Cover extends React.Component {
   }
 
   getProfileImage() {
-    return Connection.getWebUrl() + "profile/" + this.props.user.profile_image;
+    var profile_image = this.props.user.profile_image;
+    if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
+      return profile_image;
+    } else {
+      return Connection.getWebUrl() + "profile/" + profile_image;
+    }
   }
+
+  getCoverImage() {
+    var coverimage = this.props.user.cover_image;
+    if ((coverimage != '' || coverimage != null) && coverimage.includes("http", 0)) {
+      return coverimage;
+    } else {
+      return Connection.getWebUrl() + "profile/" + coverimage;
+    }
+  }
+
   render() {
     return (
-      <div className="timeline-cover" style={{ backgroundImage: "url('" + Connection.getWebUrl() + "profile/" + this.props.user.cover_image + "')" }}>
+      <div className="timeline-cover" style={{ backgroundImage: "url('" + this.getCoverImage() + "')" }}>
         {/*Timeline Menu for Large Screens*/}
 
         <div className="timeline-nav-bar hidden-sm hidden-xs">

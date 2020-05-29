@@ -2,30 +2,31 @@ import React from "react";
 import {
   Link
 } from "react-router-dom";
+import Connection from "../Connection";
 export default class Sidebar extends React.Component {
-	constructor(props) {
-        super(props);
-        this.state = {value: ''};
-    }
+  constructor(props) {
+    super(props);
+    this.state = { value: '', };
+  }
 
-    // static = {
-    //         callBack: PropTypes.func
-    // }
+  // static = {
+  //         callBack: PropTypes.func
+  // }
 
-    displayProfile(){
-// alert('1');
-// return false;
-    }
+  displayProfile() {
+    // alert('1');
+    // return false;
+  }
 
-    render(){
-        return(
-            <div className="col-md-3 static hidden-sm hidden-xs" id="hideonmobile">
-            <div className="profile-card">
-              <img src={process.env.PUBLIC_URL+"/images/users/user-1.jpg"} alt="user" className="profile-photo" />
-              <h5><Link to="/profile" className="text-white">Sarah Cruiz</Link></h5>
-              <a href="#" className="text-white"><i className="ion ion-android-person-add" /> 1,299 followers</a>
-            </div>{/*profile card ends*/}
-            {/* <ul className="nav-news-feed">
+  render() {
+    return (
+      <div className="col-md-3 static hidden-sm hidden-xs" id="hideonmobile">
+        <div className="profile-card">
+          <img src={Connection.getProfileImage()} alt="user" className="profile-photo" />
+          <h5><Link to="/profile" className="text-white">{Connection.getSessionUser().name}</Link></h5>
+          {/* <a href="#" className="text-white"><i className="ion ion-android-person-add" /> 1,299 followers</a> */}
+        </div>{/*profile card ends*/}
+        {/* <ul className="nav-news-feed">
               <li><i className="icon ion-ios-paper" /><div><a href="newsfeed.html">My Newsfeed</a></div></li>
               <li><i className="icon ion-ios-people" /><div><a href="newsfeed-people-nearby.html">People Nearby</a></div></li>
               <li><i className="icon ion-ios-people-outline" /><div><a href="newsfeed-friends.html">Friends</a></div></li>
@@ -33,11 +34,11 @@ export default class Sidebar extends React.Component {
               <li><i className="icon ion-images" /><div><a href="newsfeed-images.html">Images</a></div></li>
               <li><i className="icon ion-ios-videocam" /><div><a href="newsfeed-videos.html">Videos</a></div></li>
             </ul> */}
-            
-            {/*news-feed links ends*/}
+
+        {/*news-feed links ends*/}
 
 
-            {/* <div id="chat-block">
+        {/* <div id="chat-block">
               <div className="title">Chat online</div>
               <ul className="online-users list-inline">
                 <li><a href="newsfeed-messages.html" title="Linda Lohan"><img src="images/users/user-2.jpg" alt="user" className="img-responsive profile-photo" /><span className="online-dot" /></a></li>
@@ -51,10 +52,10 @@ export default class Sidebar extends React.Component {
                 <li><a href="newsfeed-messages.html" title="Julia Cox"><img src="images/users/user-10.jpg" alt="user" className="img-responsive profile-photo" /><span className="online-dot" /></a></li>
               </ul>
             </div> */}
-            
-            
-            {/*chat block ends*/}
-          </div>
-        )
-    }
+
+
+        {/*chat block ends*/}
+      </div>
+    )
+  }
 }

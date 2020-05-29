@@ -56,8 +56,12 @@ export default class Cover extends React.Component {
       console.log('state cover image')
       return this.state.cover_image
     } else if (this.props.user.cover_image) {
-      console.log('props cover image')
-      return Connection.getWebUrl() + "profile/" + this.props.user.cover_image
+      var coverimage = this.props.user.cover_image;
+      if ((coverimage != '' || coverimage != null) && coverimage.includes("http", 0)) {
+        return coverimage;
+      } else {
+        return Connection.getWebUrl() + "profile/" + coverimage;
+      }
     }
     else {
       return ''
@@ -68,7 +72,12 @@ export default class Cover extends React.Component {
     if (this.state.profile_image != null) {
       return this.state.profile_image
     } else if (this.props.user.profile_image) {
-      return Connection.getWebUrl() + "profile/" + this.props.user.profile_image
+      var profile_image = this.props.user.profile_image;
+      if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
+        return profile_image;
+      } else {
+        return Connection.getWebUrl() + "profile/" + profile_image;
+      }
     }
     else {
       return ''
