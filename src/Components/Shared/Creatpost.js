@@ -15,6 +15,22 @@ export default class Sidebar extends React.Component {
     this.setState({ image: image })
   }
 
+  async createPost() {
+    var url = Connection.getBaseUrl() + "status/compose";
+    var formData = new FormData();
+    formData.append("status", this.state.value);
+    formData.append("token", Connection.getToken());
+    await fetch(url, {
+      method: 'Post',
+      body: formData
+    },
+    )
+      .then(res => res.json())
+      .then(res => {
+        alert(res.message);
+      })
+  }
+
   render() {
     return (
 
@@ -30,24 +46,20 @@ export default class Sidebar extends React.Component {
           </div>
           <div className="col-md-5 col-sm-5">
             <div className="tools">
-              <ul className="publishing-tools list-inline">
-                {/* <li><a href="#"><input type="file" className="ion-images" /></a></li> */}
 
-
-                <li>
-
-
-                </li>
-
-
-                <li><a href="#"><i className="ion-ios-videocam" /></a></li>
-                {/* <li><a href="#"><i className="ion-map" /></a></li> */}
-              </ul>
-              <button onClick={() => { alert(this.state.value) }} className="btn btn-primary pull-right">Publish</button>
+              <button onClick={() => this.createPost()} className="btn btn-primary pull-right">Publish</button>
             </div>
           </div>
         </div>
-      </div>
+
+        <div className="row">
+          <div className="col-md-1"></div>
+          <div className="col-md-5">
+            <a href="#"><i style={{ margin: 6, color: '#6d6e71', fontSize: 16 }} className="fa fa-tag" /></a>
+
+          </div>
+        </div>
+      </div >
     )
   }
 }

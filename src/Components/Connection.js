@@ -1,11 +1,11 @@
 
 export default {
    getBaseUrl() {
-      return 'http://192.168.10.6/swap/public/api/';
+      return 'http://192.168.10.10/swap/public/api/';
    }
    ,
    getWebUrl() {
-      return 'http://192.168.10.6/swap/public/';
+      return 'http://192.168.10.10/swap/public/';
    },
 
    getToken() {
@@ -44,6 +44,17 @@ export default {
    getProfileImage() {
       let user = this.getSessionUser();
       var profile_image = user.profile_image;
+      if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
+         return profile_image;
+      } else {
+         return this.getWebUrl() + "profile/" + profile_image;
+      }
+   },
+
+   getProfileImageForUsers(profile_image) {
+      console.log(profile_image);
+      // let user = this.getSessionUser();
+      // var profile_image = user.profile_image;
       if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
          return profile_image;
       } else {
