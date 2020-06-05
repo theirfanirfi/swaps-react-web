@@ -11,6 +11,7 @@ export default class Cover extends React.Component {
   state = {
     statuses: 'active',
     swaps: '',
+    followed_unfollowed: 'Follow'
 
   }
   static = {
@@ -57,6 +58,26 @@ export default class Cover extends React.Component {
     }
   }
 
+
+  async followUser() {
+
+    var url = Connection.getBaseUrl() + "followers/follow?token=" + Connection.getToken() +
+      '&id=' + this.props.user.user_id;
+    await fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        if (res.isError) {
+          alert(res.message);
+        } else if (res.isFollowed) {
+          this.setState({
+            followed_unfollowed: 'unfollow'
+          })
+        } else {
+          alert(res.message);
+        }
+      })
+  }
+
   render() {
     return (
       <div className="timeline-cover" style={{ backgroundImage: "url('" + this.getCoverImage() + "')" }}>
@@ -94,7 +115,7 @@ export default class Cover extends React.Component {
               <ul className="follow-me list-inline">
 
                 <li><b>{this.props.stats.followers}</b> Followers</li>
-                <li><button className="btn-primary">Follow</button></li>
+                <li><button onClick={() => this.followUser()} className="btn-primary">{this.state.followed_unfollowed}</button></li>
               </ul>
             </div>
           </div>
@@ -117,7 +138,7 @@ export default class Cover extends React.Component {
                 {/* <li><a href="timeline-album.html">Album</a></li>
                   <li><a href="timeline-friends.html">Friends</a></li> */}
               </ul>
-              <button className="btn-primary">Follow</button>
+              <button onClick={() => this.followUser()} className="btn-primary">{this.state.followed_unfollowed}</button>
             </div>
           </div>{/*Timeline Menu for Small Screens End*/}
 

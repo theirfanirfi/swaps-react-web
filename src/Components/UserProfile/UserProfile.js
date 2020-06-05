@@ -36,9 +36,9 @@ export default class UserProfile extends React.Component {
 
 	componentDidMount() {
 		var profile_id = this.props.match.params.id;
-		// const { match: { params } } = this.props;
-		console.log("id: " + profile_id);
-		var url = Connection.getBaseUrl() + 'profile/getProfileStatsr?token=' + Connection.getToken();
+		// // const { match: { params } } = this.props;
+		// console.log("id: " + profile_id);
+		var url = Connection.getBaseUrl() + 'profile/getProfileUserStats?id=' + profile_id;
 		fetch(url)
 			.then(res => res.json())
 			.then(res => {
