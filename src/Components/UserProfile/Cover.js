@@ -78,6 +78,8 @@ export default class Cover extends React.Component {
       })
   }
 
+
+
   render() {
     return (
       <div className="timeline-cover" style={{ backgroundImage: "url('" + this.getCoverImage() + "')" }}>
@@ -115,6 +117,7 @@ export default class Cover extends React.Component {
               <ul className="follow-me list-inline">
 
                 <li><b>{this.props.stats.followers}</b> Followers</li>
+                <li><Link to={("/chat/" + this.props.user.user_id)} ><i className="fa fa-comments"></i> Chat</Link></li>
                 <li><button onClick={() => this.followUser()} className="btn-primary">{this.state.followed_unfollowed}</button></li>
               </ul>
             </div>

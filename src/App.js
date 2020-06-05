@@ -71,7 +71,7 @@ export default class App extends React.Component {
 
 
             <Route path="/status/:id" component={Status} />
-            <Route path="/chat/:id" ><Chat /> </Route>
+            <Route path="/chat/:id" component={Chat} />
             <Route path="/search/:s" ><Search /></Route>
           </Switch>
         </div>
