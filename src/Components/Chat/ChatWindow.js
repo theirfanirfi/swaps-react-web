@@ -94,8 +94,12 @@ export default class ChatWindow extends React.Component {
         if (res.isError) {
           alert(res.message);
         } else if (res.isSent) {
-          var msgs = this.state.messages;
-          console.log("msg lenght: " + msgs.length);
+          var msgs = [];
+          if (this.state.messages != null) {
+            var msgs = this.state.messages;
+          }
+
+
           msgs.push(res.s_message);
           this.setState({
             newMessage: '',
