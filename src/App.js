@@ -40,7 +40,7 @@ export default class App extends React.Component {
             </Route>
             <Route exact path="/profile/" ><Profile /></Route>
 
-            <Route exact path="/profile/:id" ><UserProfile /></Route>
+            <Route exact path="/profile/:id" component={UserProfile} />
             <Route path="/browse">
               <BrowseTab />
             </Route>
@@ -70,9 +70,7 @@ export default class App extends React.Component {
             </Route>
 
 
-            <Route path="/status/:id" >
-              <Status />
-            </Route>
+            <Route path="/status/:id" component={Status} />
             <Route path="/chat/:id" ><Chat /> </Route>
             <Route path="/search/:s" ><Search /></Route>
           </Switch>

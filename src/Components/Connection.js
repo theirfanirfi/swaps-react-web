@@ -55,6 +55,7 @@ export default {
       console.log(profile_image);
       // let user = this.getSessionUser();
       // var profile_image = user.profile_image;
+      profile_image = profile_image == null ? '0' : profile_image;
       if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
          return profile_image;
       } else {

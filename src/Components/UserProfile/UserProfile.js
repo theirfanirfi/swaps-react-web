@@ -5,6 +5,7 @@ import StatusesProfileTab from '../Shared/Profile/StatusesProfileTab.js';
 import SwapsProfileTab from '../Shared/Profile/SwapsProfileTab.js';
 import Connection from '../Connection.js';
 import ClipLoader from "react-spinners/ClipLoader";
+
 export default class UserProfile extends React.Component {
 	constructor(props) {
 		super(props);
@@ -35,6 +36,8 @@ export default class UserProfile extends React.Component {
 
 	componentDidMount() {
 		var profile_id = this.props.match.params.id;
+		// const { match: { params } } = this.props;
+		console.log("id: " + profile_id);
 		var url = Connection.getBaseUrl() + 'profile/getProfileStatsr?token=' + Connection.getToken();
 		fetch(url)
 			.then(res => res.json())
@@ -65,6 +68,8 @@ export default class UserProfile extends React.Component {
 				}
 			});
 	}
+
+
 	render() {
 
 
@@ -72,7 +77,6 @@ export default class UserProfile extends React.Component {
 
 		return (
 			<div>
-				<h1>Working</h1>
 				<Topbar callBack={this.renderView} />
 				{/* main content */}
 				<div id="page-contents">

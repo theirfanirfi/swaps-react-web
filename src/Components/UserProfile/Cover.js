@@ -39,6 +39,7 @@ export default class Cover extends React.Component {
 
   getProfileImage() {
     var profile_image = this.props.user.profile_image;
+    profile_image = profile_image == null ? '0' : profile_image;
     if ((profile_image != '' || profile_image != null) && profile_image.includes("http", 0)) {
       return profile_image;
     } else {
@@ -48,6 +49,7 @@ export default class Cover extends React.Component {
 
   getCoverImage() {
     var coverimage = this.props.user.cover_image;
+    coverimage = coverimage == null ? '0' : coverimage;
     if ((coverimage != '' || coverimage != null) && coverimage.includes("http", 0)) {
       return coverimage;
     } else {
